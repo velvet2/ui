@@ -7,6 +7,9 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
     menus: Array<any> = [
-        { "icon" : "person", "menu": "User", "link" : "/user" }
+        { "icon" : "room", "menu": "Rooms", "link" : "/room" },
+        { "icon" : "person", "menu": "Users", "link" : "/user" },
+        { "icon" : "group", "menu": "Groups", "link" : "/group" },
+        { "icon" : "settings", "menu": "Settings", "link" : "/setting" }
     ]
 }
