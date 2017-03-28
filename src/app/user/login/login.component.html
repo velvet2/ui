@@ -1,0 +1,30 @@
+<div fxFill fxLayout="column" fxLayoutAlign="center center">
+    <md-card [style.width.vw]="40">
+        <div md-card-title>Login</div>
+        <div md-card-content>
+            <div fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="center center">
+                <md-icon>person</md-icon>
+                <md-input-container>
+                  <input mdInput placeholder="Username">
+                </md-input-container>
+            </div>
+
+            <div fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="center center">
+                <md-icon>vpn_key</md-icon>
+                <md-input-container>
+                    <input mdInput placeholder="Password">
+                </md-input-container>
+            </div>
+
+            <div fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="center center">
+                <md-checkbox>Remember Me</md-checkbox>
+            </div>
+
+            <hr />
+            <div fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="end">
+                <button md-raised-button color="primary">Login</button>
+            </div>
+        </div>
+        <a  [style.font-size.rem]="0.7" href="#">Forget Password</a>
+    </md-card>
+</div>
