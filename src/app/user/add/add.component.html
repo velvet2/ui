@@ -1,5 +1,50 @@
-<div fxFill >
-    <md-card>
-        ads
-    </md-card>
+<div class="container">
+    <div md-dialog-title>
+        <h3>Add New User</h3>
+    </div>
+    <div md-dialog-content>
+        <div fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="left center">
+            <md-icon>person</md-icon>
+            <md-input-container>
+                <input mdInput placeholder="Username">
+            </md-input-container>
+        </div>
+
+        <div fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="left center">
+            <md-input-container>
+                <input mdInput placeholder="First Name">
+            </md-input-container>
+
+            <md-input-container>
+                <input mdInput placeholder="Last Name">
+            </md-input-container>
+        </div>
+
+        <div fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="left center">
+            <md-icon>phone</md-icon>
+            <md-input-container>
+                <input mdInput placeholder="Phone">
+            </md-input-container>
+        </div>
+
+        <div fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="left center">
+            <md-icon>email</md-icon>
+            <md-input-container>
+                <input mdInput placeholder="Email">
+            </md-input-container>
+        </div>
+
+
+        <div fxLayout="column" fxLayoutGap="10px" fxLayoutAlign="">
+            <md-icon>home</md-icon>
+            <md-input-container>
+                <textarea mdInput placeholder="Address"></textarea>
+            </md-input-container>
+        </div>
+    </div>
+
+    <div md-dialog-action fxLayout="row" fxLayoutAlign="end" fxLayoutGap="10px">
+        <button md-raised-button color="accent">Close</button>
+        <button md-raised-button color="primary">Create</button>
+    </div>
 </div>

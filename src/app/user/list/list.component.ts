@@ -1,4 +1,7 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Router, ActivatedRoute, Params } from '@angular/router';
+import { MdDialog } from '@angular/material';
+import { AddComponent } from '../add/add.component';
 
 @Component({
   selector: 'app-list',
@@ -43,18 +46,26 @@ export class ListComponent implements OnInit {
     { name: 'Company' }
   ];
 
-  constructor() { }
+  routeListener: any;
+  dialogRef: any;
+
+  constructor(  private route: ActivatedRoute,
+                private router: Router,
+                private dialog: MdDialog ) {}
 
   ngOnInit() {
-    //   console.log(this.main.nativeElement.getBoundingClientRect().height);
-      this.tableHeight = this.main.nativeElement.getBoundingClientRect().height;
-      console.log(this.main.nativeElement.getBoundingClientRect())
+      this.route.fragment.subscribe((v: any)=>{
+          if (v == 'new'){
+            this.dialogRef = this.dialog.open(AddComponent);
+            this.dialogRef.afterClosed().subscribe(( result: any ) => {
+              this.router.navigate([])
+            });
+          }
+      });
   }
 
-  ngAfterViewInit(){
-      this.tableHeight = this.main.nativeElement.getBoundingClientRect().height;
-      console.log(this.main.nativeElement.getBoundingClientRect())
-      
+  ngOnDestroy(){
+      this.routeListener.unsubscribe();
   }
 
 }

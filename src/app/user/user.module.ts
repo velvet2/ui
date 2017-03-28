@@ -19,6 +19,7 @@ import { ListComponent } from './list/list.component';
 
     NgxDatatableModule
   ],
-  declarations: [AddComponent, LoginComponent, ListComponent]
+    declarations: [AddComponent, LoginComponent, ListComponent],
+   entryComponents: [AddComponent],
 })
 export class UserModule { }
