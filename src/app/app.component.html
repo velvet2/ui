@@ -1,6 +1,12 @@
 <md-sidenav-container class="side-container">
-    <md-sidenav #sidenav class="example-sidenav">
-    Jolly good!
+    <md-sidenav #sidenav class="sidenav">
+        <md-nav-list>
+            <md-list-item *ngFor="let menu of menus"
+                [routerLink]="menu.link" routerLinkActive="active">
+                <md-icon>{{ menu.icon }}</md-icon>
+                {{ menu.menu }}
+            </md-list-item>
+        </md-nav-list>
     </md-sidenav>
 
     <div class="example-sidenav-content" fxLayout="column" fxFill>

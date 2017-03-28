@@ -6,5 +6,7 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'app works!';
+    menus: Array<any> = [
+        { "icon" : "person", "menu": "User", "link" : "/user" }
+    ]
 }

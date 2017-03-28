@@ -1,3 +1,19 @@
 .side-container {
     height: 100%;
 }
+
+.sidenav {
+    width: 20vw;
+}
+
+md-list-item md-icon {
+    padding-right: 5px
+}
+
+md-list-item{
+    outline: none;
+}
+
+md-list-item.active {
+    background : lightgray
+}
