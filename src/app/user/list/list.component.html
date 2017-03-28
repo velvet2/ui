@@ -1,0 +1,15 @@
+<div [style.padding.px]="10"
+    [style.height.%]="100"
+    [style.max-height.%]="100"
+
+    #main fxLayout="column">
+    <ngx-datatable
+       class="material datatable"
+       [rows]="rows"
+       [columns]="columns"
+       [columnMode]="'force'"
+       [headerHeight]="50"
+       [rowHeight]="40"
+       [scrollbarV]="true">
+    </ngx-datatable>
+</div>
