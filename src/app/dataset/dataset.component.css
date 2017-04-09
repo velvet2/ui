@@ -1,0 +1,18 @@
+.app-action {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+}
+
+.app-content {
+  padding: 20px;
+  overflow-y: scroll;
+}
+
+.upload-progress {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    width: 40vw;
+    padding: 10px
+}

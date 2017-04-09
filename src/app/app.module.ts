@@ -9,6 +9,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { UserModule } from './user/user.module';
+import { DatasetModule } from './dataset/dataset.module';
+
+import { AppState } from './app.service';
 
 @NgModule({
   declarations: [
@@ -23,9 +26,12 @@ import { UserModule } from './user/user.module';
     BrowserAnimationsModule,
 
     AppRoutingModule,
-    UserModule
+    UserModule,
+    DatasetModule
   ],
-  providers: [],
+  providers: [
+      AppState
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
