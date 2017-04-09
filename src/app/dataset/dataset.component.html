@@ -3,16 +3,23 @@
        <md-card-title>
            <span>{{data.name}}</span></md-card-title>
        <md-card-actions [style.padding-left.px]="8">
-           <button md-button color="primary" [routerLink]="'/dataset/' + data.id">Open</button>
-            <button md-button color="primary" (click)="openUploadDialog(data.id)">Upload</button>
-            <button md-button color="primary" >Edit</button>
-            <button md-button color="warn" (click)="delete(data.id)">Delete</button>
+           <button  md-button color="primary"
+                    [routerLink]="'/dataset/' + data.id">Open</button>
+            <button md-button color="primary"
+                    (click)="openUploadDialog(data.id)">Upload</button>
+            <button md-button
+                    color="primary" >Edit</button>
+            <button md-button
+                    color="warn"
+                    (click)="delete(data.id)">Delete</button>
        </md-card-actions>
     </md-card>
 </div>
 
 <span class="app-action">
-    <button md-fab (click)="openCreateDialog()"><md-icon>add</md-icon></button>
+    <button md-fab (click)="openCreateDialog()">
+        <md-icon>add</md-icon>
+    </button>
 </span>
 
 <md-card *ngIf="uploading" class="upload-progress">
