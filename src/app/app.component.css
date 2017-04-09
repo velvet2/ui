@@ -3,7 +3,8 @@
 }
 
 .sidenav {
-    width: 20vw;
+    width: 25vw;
+    min-width: 150px;
 }
 
 md-list-item md-icon {
