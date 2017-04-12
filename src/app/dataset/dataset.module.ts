@@ -5,9 +5,11 @@ import { FlexLayoutModule } from "@angular/flex-layout";
 import { FormsModule } from '@angular/forms'
 
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
+import { VirtualScrollModule } from 'angular2-virtual-scroll';
 
 import { DatasetRoutingModule } from './dataset-routing.module';
 import { DatasetComponent } from './dataset.component';
+import { DataComponent } from './data/data.component';
 
 import { DatasetService } from './dataset.service';
 
@@ -26,13 +28,15 @@ import { UploadComponent } from './dialog/upload/upload.component';
         FormsModule,
         FlexLayoutModule,
 
-        NgxDatatableModule
+        NgxDatatableModule,
+        VirtualScrollModule
     ],
     declarations: [
         DatasetComponent,
         DatasetDialog,
         UploadComponent,
-        UploadDatasetDialog
+        UploadDatasetDialog,
+        DataComponent
     ],
     providers: [
         DatasetService

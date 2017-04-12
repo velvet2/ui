@@ -1,0 +1,91 @@
+<div style="max-height:100%;min-height:100%"
+    #stage
+    fxLayout="column">
+    <md-toolbar color="lightgray" fxLayout="row">
+        <!-- <div style="padding-right:10px">
+            <button md-mini-fab (click)="openLabelDialog()">
+                <md-icon class="md-24">add</md-icon>
+            </button>
+        </div>
+        <md-select placeholder="Label" [(ngModel)]="labelId" (ngModelChange)="reloadLabel()">
+          <md-option *ngFor="let label of labels" [value]="label.id">{{label.name}}</md-option>
+        </md-select> -->
+        <md-input-container>
+            <input mdInput placeholder="Search">
+        </md-input-container>
+
+        <span fxFlex></span>
+        <button md-icon-button
+                *ngIf="list"
+                (click)="zoom_in()">
+            <md-icon>zoom_in</md-icon>
+        </button>
+
+        <button md-icon-button
+                *ngIf="list"
+                (click)="zoom_out()" >
+            <md-icon>zoom_out</md-icon>
+        </button>
+
+        <button md-icon-button
+                *ngIf="!list"
+                (click)="list=true; refresh()">
+            <md-icon>view_list</md-icon>
+        </button>
+
+        <button md-icon-button
+                *ngIf="list"
+                (click)="list=false; refresh()">
+            <md-icon>view_module</md-icon>
+        </button>
+    </md-toolbar>
+
+    <virtual-scroll *ngIf="list"
+                    [items]="datas"
+                    (update)="_datas = $event; log($event)"
+                    [childHeight]="dataSize"
+                    (change)="updateIndex($event)"
+                    [childWidth]="dataSize">
+
+            <div    *ngFor="let data of _datas; let i = index"
+                    class="data"
+                    [class.highlight]="selected.has(start + i)"
+                    [style.width.px]="dataSize"
+                    [style.height.px]="dataSize"
+                    style="margin:3px"
+                    (click)="select(start + i, true)">
+
+                    {{start + i}}
+            </div>
+    </virtual-scroll>
+
+    <div *ngIf="!list" fxLayout="row">
+        <virtual-scroll fxFlex="25"
+                        [items]="datas"
+                        (update)="_datas = $event; log($event)"
+                        (change)="updateIndex($event)">
+
+                <div    *ngFor="let data of _datas; let i = index"
+                        (click)="selected = data; selected_index = start + i"
+                        [style.height.vw]="25"
+                        style="background:red;margin:3px"
+                        (click)="select(start + i, false)"
+                        [class.highlight]="selected.has(start + i)">
+                        {{start + i}}
+                </div>
+        </virtual-scroll>
+
+        <div fxFlex="75">
+            {{ selectedData | json }}
+        </div>
+
+
+    </div>
+        <!-- <div style="flex:5 0 0;display:flex;align-items:center">
+            <div style="position:relative">
+                <img #image (load)="updateImageDimension()" style="max-height:100%;max-width:100%" src="http://localhost:8080/{{selected.path}}"/>
+                <box #label [data]="selected.label" (change)="saveData($event)"></box>
+            </div>
+        </div> -->
+    <!-- </div> -->
+</div>
