@@ -10,6 +10,7 @@ import { VirtualScrollModule } from 'angular2-virtual-scroll';
 import { DatasetRoutingModule } from './dataset-routing.module';
 import { DatasetComponent } from './dataset.component';
 import { DataComponent } from './data/data.component';
+import { DataContainerComponent } from './data/data.container.component';
 
 import { DatasetService } from './dataset.service';
 
@@ -36,7 +37,8 @@ import { UploadComponent } from './dialog/upload/upload.component';
         DatasetDialog,
         UploadComponent,
         UploadDatasetDialog,
-        DataComponent
+        DataComponent,
+        DataContainerComponent
     ],
     providers: [
         DatasetService

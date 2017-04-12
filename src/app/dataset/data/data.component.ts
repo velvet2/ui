@@ -65,11 +65,7 @@ export class DataComponent {
         let w = this.stage.nativeElement.getBoundingClientRect().width;
         this.dataSize = (w / this.zoomLevel) - 6 // margin;
     }
-
-    log($e){
-        // console.log("length", $e.length)
-    }
-
+ 
     select(index: any, multi: boolean = false){
         if(multi){
             this.selected.add(index);

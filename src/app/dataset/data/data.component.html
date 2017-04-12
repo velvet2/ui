@@ -30,13 +30,13 @@
         <button md-icon-button
                 *ngIf="!list"
                 (click)="list=true; refresh()">
-            <md-icon>view_list</md-icon>
+            <md-icon>view_module</md-icon>
         </button>
 
         <button md-icon-button
                 *ngIf="list"
                 (click)="list=false; refresh()">
-            <md-icon>view_module</md-icon>
+            <md-icon>view_list</md-icon>
         </button>
     </md-toolbar>
 
@@ -55,7 +55,8 @@
                     style="margin:3px"
                     (click)="select(start + i, true)">
 
-                    {{start + i}}
+                    <data-container (data)="data">
+                    </data-container>
             </div>
     </virtual-scroll>
 
@@ -71,12 +72,14 @@
                         style="background:red;margin:3px"
                         (click)="select(start + i, false)"
                         [class.highlight]="selected.has(start + i)">
-                        {{start + i}}
+                        <data-container (data)="data">
+                        </data-container>
                 </div>
         </virtual-scroll>
 
         <div fxFlex="75">
-            {{ selectedData | json }}
+            <data-container (data)="selectedData">
+            </data-container>
         </div>
 
 
