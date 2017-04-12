@@ -42,7 +42,7 @@
 
     <virtual-scroll *ngIf="list"
                     [items]="datas"
-                    (update)="_datas = $event; log($event)"
+                    (update)="_datas = $event;"
                     [childHeight]="dataSize"
                     (change)="updateIndex($event)"
                     [childWidth]="dataSize">
@@ -63,7 +63,7 @@
     <div *ngIf="!list" fxLayout="row">
         <virtual-scroll fxFlex="25"
                         [items]="datas"
-                        (update)="_datas = $event; log($event)"
+                        (update)="_datas = $event;"
                         (change)="updateIndex($event)">
 
                 <div    *ngFor="let data of _datas; let i = index"
