@@ -13,13 +13,14 @@ import { DataComponent } from './data/data.component';
 import { DataContainerComponent } from './data/data.container.component';
 
 import { DatasetService } from './dataset.service';
+import { DataService } from './data/data.service';
 
 import { DatasetDialog } from './dialog/create/dialog.component';
 import { UploadDatasetDialog } from './dialog/update/dialog.component';
 import { UploadComponent } from './dialog/upload/upload.component';
 
-// import { UploadDialog } from '../dialog/upload/upload.dialog';
-// import { LabelDialog } from '../dialog/label/label.dialog';
+import { DataModule } from '../data/data.module';
+import { ImageComponent } from '../data';
 
 @NgModule({
     imports: [
@@ -28,6 +29,7 @@ import { UploadComponent } from './dialog/upload/upload.component';
         MaterialModule,
         FormsModule,
         FlexLayoutModule,
+        // DataModule,
 
         NgxDatatableModule,
         VirtualScrollModule
@@ -38,10 +40,13 @@ import { UploadComponent } from './dialog/upload/upload.component';
         UploadComponent,
         UploadDatasetDialog,
         DataComponent,
-        DataContainerComponent
+        DataContainerComponent,
+
+        ImageComponent
     ],
     providers: [
-        DatasetService
+        DatasetService,
+        DataService
     ],
     entryComponents: [
         DatasetDialog,

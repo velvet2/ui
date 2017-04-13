@@ -55,7 +55,7 @@
                     style="margin:3px"
                     (click)="select(start + i, true)">
 
-                    <data-container (data)="data">
+                    <data-container [data]="data">
                     </data-container>
             </div>
     </virtual-scroll>
@@ -69,16 +69,16 @@
                 <div    *ngFor="let data of _datas; let i = index"
                         (click)="selected = data; selected_index = start + i"
                         [style.height.vw]="25"
-                        style="background:red;margin:3px"
+                        style="margin:3px"
                         (click)="select(start + i, false)"
                         [class.highlight]="selected.has(start + i)">
-                        <data-container (data)="data">
+                        <data-container [data]="data">
                         </data-container>
                 </div>
         </virtual-scroll>
 
         <div fxFlex="75">
-            <data-container (data)="selectedData">
+            <data-container *ngIf="selectedData" [data]="selectedData">
             </data-container>
         </div>
 

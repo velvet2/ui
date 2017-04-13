@@ -6,4 +6,8 @@ import { Component, Input } from '@angular/core';
 })
 export class DataContainerComponent {
     @Input() data: any
+
+    ngOnInit(){
+        console.log(this.data);
+    }
 }

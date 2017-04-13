@@ -7,7 +7,12 @@ export class DataService {
     constructor(private _http: Http) { }
 
     getData(dataset_id: string): Observable<any> {
-        return this._http.get('http://localhost:8080/dataset/' + dataset_id)
+        // return new Promise((resolve, reject)=>{
+        //         resolve([
+        //             {name: }
+        //         ])
+        // })
+        return this._http.get('/api/dataset/' + dataset_id)
             .map((data: Response) => {
                 return data.json()
             })

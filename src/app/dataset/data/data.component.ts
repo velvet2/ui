@@ -3,7 +3,8 @@ import { MdDialog, MdDialogRef } from '@angular/material';
 import { Http, RequestOptionsArgs, Headers } from '@angular/http';
 import { AppState } from '../../app.service';
 import { Router, ActivatedRoute, Params } from '@angular/router';
-// import { DataService } from './data.service';
+import { DataService } from './data.service';
+
 // import { LabelService } from '../label/label.service';
 // import { Label } from '../label/label.class';
 // import { LabelDialog } from '../dialog/label/label.dialog';
@@ -30,21 +31,29 @@ export class DataComponent {
     selected: Set<number> = new Set<number>();
     selectedData: any;
 
-    // constructor(private _state: AppState,
-    //             private route: ActivatedRoute,
-    //             private router: Router,
-    //             private dialog: MdDialog,
-    //             private _data: DataService,
-    //             private _label: LabelService) { }
+    constructor(private _state: AppState,
+                private route: ActivatedRoute,
+                private router: Router,
+                private _data: DataService){}
+                // private dialog: MdDialog,
+                // private _label: LabelService) { }
 
     ngOnInit(){
-        this.datas = [{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},
-                        {},{},{},{},{},{},{},{},{},{},{},{},{},
-                        {},{},{},{},{},{},{},{},{},{},{},{},{},
-                        {},{},{},{},{},{},{},{},{},{},{},{},{},
-                        {},{},{},{},{},{},{},{},{},{},{},{},{},];
+        this.sub = this.route.params.subscribe(params => {
+            this.id = +params['id'];
+            this._data.getData(this.id).subscribe((v: any)=>{
+                this.datas = v['data'];
+                // this.selected = this.datas[this.selected_index];
+                //     this.reloadLabel();
+            });
 
-        // this.datas = [{},{},{},{}];
+            // this._label.get(this.id).subscribe((v:any)=>{
+            //     this.labels = v['data'];
+            //     if(this.labels.length != 0){
+            //         this.labelId = +this.labels[0].id;
+            //     }
+            // },()=>{});
+        });
     }
 
     ngAfterViewInit(){
@@ -65,7 +74,7 @@ export class DataComponent {
         let w = this.stage.nativeElement.getBoundingClientRect().width;
         this.dataSize = (w / this.zoomLevel) - 6 // margin;
     }
- 
+
     select(index: any, multi: boolean = false){
         if(multi){
             this.selected.add(index);
