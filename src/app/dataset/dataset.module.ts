@@ -21,6 +21,7 @@ import { UploadComponent } from './dialog/upload/upload.component';
 
 import { DataModule } from '../data/data.module';
 import { ImageComponent } from '../data';
+import { ClassComponent } from '../label';
 
 @NgModule({
     imports: [
@@ -42,7 +43,9 @@ import { ImageComponent } from '../data';
         DataComponent,
         DataContainerComponent,
 
-        ImageComponent
+        ImageComponent,
+
+        ClassComponent
     ],
     providers: [
         DatasetService,

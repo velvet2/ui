@@ -15,7 +15,7 @@ import { AppState } from './app.service';
 
 @NgModule({
   declarations: [
-    AppComponent,
+    AppComponent
   ],
   imports: [
     BrowserModule,

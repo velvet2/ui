@@ -8,6 +8,6 @@ export class DataContainerComponent {
     @Input() data: any
 
     ngOnInit(){
-        console.log(this.data);
+
     }
 }
