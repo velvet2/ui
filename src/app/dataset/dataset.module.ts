@@ -51,6 +51,9 @@ import { ClassComponent } from '../label';
         DatasetService,
         DataService
     ],
+    exports: [
+        DataContainerComponent
+    ],
     entryComponents: [
         DatasetDialog,
         UploadDatasetDialog

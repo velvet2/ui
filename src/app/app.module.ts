@@ -10,6 +10,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { UserModule } from './user/user.module';
 import { DatasetModule } from './dataset/dataset.module';
+import { ProjectModule } from './project/project.module';
 
 import { AppState } from './app.service';
 
@@ -27,7 +28,8 @@ import { AppState } from './app.service';
 
     AppRoutingModule,
     UserModule,
-    DatasetModule
+    DatasetModule,
+    ProjectModule
   ],
   providers: [
       AppState

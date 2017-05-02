@@ -11,6 +11,8 @@ export class AppComponent {
         { "icon" : "person", "menu": "Users", "link" : "/user" },
         { "icon" : "group", "menu": "Groups", "link" : "/group" },
         { "icon" : "folder", "menu": "Datasets", "link" : "/dataset" },
-        { "icon" : "settings", "menu": "Settings", "link" : "/setting" }
+        { "icon" : "settings", "menu": "Settings", "link" : "/setting" },
+        { "icon" : "work", "menu": "Project", "link" : "/project" }
+
     ]
 }

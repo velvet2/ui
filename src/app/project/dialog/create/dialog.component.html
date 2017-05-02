@@ -1,0 +1,38 @@
+<div class="upload-window" fxLayout="column">
+    <h3 md-dialog-title>Create New Project</h3>
+    <div fxFlex fxLayout="column" fxLayoutGap="10px">
+        <div fxLayout="row" fxLayoutAlign="start center">
+            <md-icon>text_fields</md-icon>
+            <md-input-container [style.padding.px]="5">
+                <input mdInput
+                        [(ngModel)]="dataName"
+                        placeholder="Dataset Name"
+                        [required]="true"
+                        name="dataname">
+            </md-input-container>
+        </div>
+
+        <md-select placeholder="Dataset" [(ngModel)]="dataset">
+          <md-option *ngFor="let data of datas" [value]="data.id">
+            {{ data.name }}
+          </md-option>
+        </md-select>
+
+
+        <md-select placeholder="Label Type" [(ngModel)]="lbl">
+          <md-option *ngFor="let label of labels" [value]="label.id">
+            {{ label.name }}
+          </md-option>
+        </md-select>
+
+
+        <!-- <upload-dialog fxFlex
+                        (dataDrop)="data = $event">
+        </upload-dialog> -->
+    </div>
+    <div md-dialog-actions fxLayout="row" fxLayoutAlign="end" fxFlexAlign="end">
+        <button md-raised-button
+                (click)="create()"
+                color="primary">Create</button>
+    </div>
+</div>

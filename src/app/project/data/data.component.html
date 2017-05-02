@@ -1,0 +1,79 @@
+<div style="max-height:100%;min-height:100%"
+    #stage
+    fxLayout="column">
+    <md-toolbar color="lightgray" fxLayout="row">
+        <md-input-container>
+            <input mdInput placeholder="Search">
+        </md-input-container>
+
+        <span fxFlex></span>
+        <button md-icon-button
+                *ngIf="list"
+                (click)="zoom_in()">
+            <md-icon>zoom_in</md-icon>
+        </button>
+
+        <button md-icon-button
+                *ngIf="list"
+                (click)="zoom_out()" >
+            <md-icon>zoom_out</md-icon>
+        </button>
+
+        <button md-icon-button
+                *ngIf="!list"
+                (click)="list=true; refresh()">
+            <md-icon>view_module</md-icon>
+        </button>
+
+        <button md-icon-button
+                *ngIf="list"
+                (click)="list=false; refresh()">
+            <md-icon>view_list</md-icon>
+        </button>
+    </md-toolbar>
+
+    <virtual-scroll *ngIf="list"
+                    [items]="datas"
+                    (update)="_datas = $event;"
+                    [childHeight]="dataSize"
+                    (change)="updateIndex($event)"
+                    [childWidth]="dataSize">
+
+            <div    *ngFor="let data of _datas; let i = index"
+                    class="data"
+                    [class.highlight]="selected.has(start + i)"
+                    [style.width.px]="dataSize"
+                    [style.height.px]="dataSize"
+                    style="margin:3px"
+                    (click)="select(start + i, true)">
+
+                    <data-container [data]="data">
+                    </data-container>
+            </div>
+    </virtual-scroll>
+
+    <div *ngIf="!list" fxLayout="row">
+        <virtual-scroll fxFlex="25"
+                        [items]="datas"
+                        (update)="_datas = $event;"
+                        (change)="updateIndex($event)">
+
+                <div    *ngFor="let data of _datas; let i = index"
+                        (click)="selected = data; selected_index = start + i"
+                        [style.height.vw]="25"
+                        style="margin:3px"
+                        (click)="select(start + i, false)"
+                        [class.highlight]="selected.has(start + i)">
+                        <data-container [data]="data">
+                        </data-container>
+                </div>
+        </virtual-scroll>
+
+        <div fxFlex="75">
+            <data-container *ngIf="selectedData" [data]="selectedData">
+            </data-container>
+        </div>
+
+
+    </div>
+</div>
