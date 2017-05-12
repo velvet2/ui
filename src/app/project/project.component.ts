@@ -52,4 +52,11 @@ export class ProjectComponent {
             }
         });
     }
+
+    delete(dataset: any){
+        this._project.delete(dataset)
+            .subscribe(()=>{
+                this._state.notifyDataChanged("project.refresh", true)                
+            })
+    }
 }

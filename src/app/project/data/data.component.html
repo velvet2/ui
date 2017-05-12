@@ -1,29 +1,28 @@
-<!-- <div style="max-height:100%;min-height:100%;overflow-y:hidden"> -->
-<md-sidenav-container fxFill>
-    <div fxFill style="background:red;overflow-y:hidden">
-        <md-toolbar color="lightgray" fxLayout="row">
-            <md-input-container>
-                <input mdInput placeholder="Search">
-            </md-input-container>
+<div style="max-height:100%;min-height:100%"
+    fxLayout="column">
+    <md-toolbar color="lightgray" fxLayout="row">
+        <md-input-container>
+            <input mdInput placeholder="Search">
+        </md-input-container>
 
-            <span fxFlex></span>
-            <button md-icon-button
-                    *ngIf="list"
-                    (click)="zoom_in()">
-                <md-icon>zoom_in</md-icon>
-            </button>
+        <span fxFlex></span>
+        <button md-icon-button
+                *ngIf="list"
+                (click)="zoom_in()">
+            <md-icon>zoom_in</md-icon>
+        </button>
 
-            <button md-icon-button
-                    *ngIf="list"
-                    (click)="zoom_out()" >
-                <md-icon>zoom_out</md-icon>
-            </button>
+        <button md-icon-button
+                *ngIf="list"
+                (click)="zoom_out()" >
+            <md-icon>zoom_out</md-icon>
+        </button>
 
-            <button md-icon-button
-                    *ngIf="!list"
-                    (click)="list=true; refresh()">
-                <md-icon>view_module</md-icon>
-            </button>
+        <button md-icon-button
+                *ngIf="!list"
+                (click)="list=true; refresh()">
+            <md-icon>view_module</md-icon>
+        </button>
 
         <button md-icon-button
                 *ngIf="list"
@@ -37,13 +36,23 @@
         </button>
     </md-toolbar>
 
-
-    <div class="no-margin overlay md-elevation-z24" *ngIf="setting">
-      <div style="position:relative; height:auto">
-        <md-card class="md-elevation-z24" style="height:100%">
-          <label-class-setting></label-class-setting>
-        </md-card>
-      </div>
+    <div class="overlay-parent" fxLayout="column">
+        <div class="overlay"
+            [class.full]="full"
+            [class.invisible]="!setting">
+          <div style="position:relative; height:auto">
+            <md-card style="height:100%">
+              <label-class-setting [config]="project?.config"></label-class-setting>
+            </md-card>
+          </div>
+        </div>
+        <button style="margin-top:3px"
+                md-mini-fab
+                fxFlexAlign="center"
+                (click)="toggleFull()">
+            <md-icon *ngIf="!full">keyboard_arrow_down</md-icon>
+            <md-icon *ngIf="full">keyboard_arrow_up</md-icon>
+        </button>
     </div>
 
     <virtual-scroll *ngIf="list"
@@ -53,36 +62,40 @@
                     [childHeight]="dataSize"
                     (change)="updateIndex($event)"
                     [childWidth]="dataSize">
+
+            <div    *ngFor="let data of _datas; let i = index"
+                    class="data"
+                    [class.highlight]="selected.has(start + i)"
+                    [style.width.px]="dataSize"
+                    [style.height.px]="dataSize"
+                    style="margin:3px"
+                    (click)="select(start + i, true)">
+
                     <data-container [data]="data">
-                            </data-container>
-            </virtual-scroll>
-        </div>
-
-
-        <div *ngIf="!list" fxLayout="row">
-            <virtual-scroll fxFlex="25"
-                            [items]="datas"
-                            (update)="_datas = $event;"
-                            (change)="updateIndex($event)">
-
-                    <div    *ngFor="let data of _datas; let i = index"
-                            (click)="selected = data; selected_index = start + i"
-                            [style.height.vw]="25"
-                            style="margin:3px"
-                            (click)="select(start + i, false)"
-                            [class.highlight]="selected.has(start + i)">
-                            <data-container [data]="data">
-                            </data-container>
-                    </div>
-            </virtual-scroll>
-
-            <div fxFlex="75">
-                <data-container *ngIf="selectedData" [data]="selectedData">
-                </data-container>
+                    </data-container>
             </div>
+    </virtual-scroll>
 
+    <div *ngIf="!list" fxLayout="row">
+        <virtual-scroll fxFlex="25"
+                        [items]="datas"
+                        (update)="_datas = $event;"
+                        (change)="updateIndex($event)">
 
+                <div    *ngFor="let data of _datas; let i = index"
+                        (click)="selected = data; selected_index = start + i"
+                        [style.height.vw]="25"
+                        style="margin:3px"
+                        (click)="select(start + i, false)"
+                        [class.highlight]="selected.has(start + i)">
+                        <data-container [data]="data">
+                        </data-container>
+                </div>
+        </virtual-scroll>
+
+        <div fxFlex="75">
+            <data-container *ngIf="selectedData" [data]="selectedData">
+            </data-container>
         </div>
     </div>
-</md-sidenav-container>
-<!-- <div> -->
+</div>

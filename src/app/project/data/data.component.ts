@@ -6,10 +6,6 @@ import { Router, ActivatedRoute, Params } from '@angular/router';
 import { DataService } from '../../dataset/data';
 import { ProjectService } from '../project.service';
 
-
-// import { LabelService } from '../label/label.service';
-// import { Label } from '../label/label.class';
-// import { LabelDialog } from '../dialog/label/label.dialog';
 import * as _ from 'lodash';
 
 @Component({
@@ -32,6 +28,7 @@ export class DataComponent {
     selected: Set<number> = new Set<number>();
     selectedData: any;
     setting: boolean = true;
+    full: boolean = false;
 
     project: any;
 
@@ -49,9 +46,8 @@ export class DataComponent {
 
             this._project.getOneProject(this.id).subscribe((v: any)=>{
                 this.project = v;
-                this._data.getData(this.project.dataset).subscribe((v: any)=>{
+                this._data.getData(this.project.dataset_id).subscribe((v: any)=>{
                     this.datas = v['data'];
-                    console.log(this.datas.length)
                 });
             });
         });
@@ -89,6 +85,11 @@ export class DataComponent {
 
     toggleSetting(){
       this.setting = !this.setting;
+    }
+
+    toggleFull(){
+        this.full = !this.full;
+        console.log(this.full)
     }
 
     refresh(){

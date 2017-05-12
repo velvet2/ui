@@ -17,9 +17,29 @@ export class ProjectService {
     }
 
     create(name: string, label: string, dataset: number): Observable<any> {
-        return this._http.post("api/project", { "name": name, "label": label, "dataset": dataset })
+        return this._http.post("api/project", { "name": name, "label": label, "dataset_id": dataset })
            .map((v: any)=>{ return v })
            .catch((v: any)=>{ return v });
+    }
+
+    delete(dataset: number): Observable<any> {
+        return this._http.delete('api/project/' + String(dataset))
+            .map((data: Response) => {
+                return null;
+            })
+            .catch((data: Response) => {
+                return null;
+            });
+    }
+
+    edit(id: number, name: string, config: any): Observable<any> {
+        return this._http.put('api/project/' + String(id), {name: name, config: config})
+            .map((data: Response) => {
+                return null;
+            })
+            .catch((data: Response) => {
+                return null;
+            });
     }
 
     getOneProject(id: string): Observable<any> {

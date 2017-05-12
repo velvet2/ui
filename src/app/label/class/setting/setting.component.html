@@ -6,24 +6,21 @@
           <md-icon>add</md-icon>
       </button>
     </div>
-    <div fxLayout="row" fxLayoutAlign="space-between center">
-      <span>Item 1</span>
-      <button md-icon-button>
-          <md-icon>close</md-icon>
-      </button>
-    </div>
-    <div fxLayout="row" fxLayoutAlign="space-between center">
-      <span>Item 2</span>
-      <button md-icon-button>
+    <div fxLayout="row" fxLayoutAlign="none center" *ngFor="let c of cls">
+      <span>{{c}}</span>
+      <div fxFlex></div>
+
+      <button md-icon-button (click)="delete(c)">
           <md-icon>close</md-icon>
       </button>
     </div>
 
     <div fxLayout="row" fxLayoutAlign="center" *ngIf="add">
       <md-input-container fxFlex>
-        <input #input mdInput placeholder="New Class" [(ngModel)]="newclass" (keydown.enter)="log()">
+        <input #input mdInput placeholder="New Class" [(ngModel)]="newclass"
+            (keydown.enter)="addClass(newclass); newclass=''; add=false">
       </md-input-container>
-      <button md-icon-button (click)="add=false">
+      <button md-icon-button (click)="addClass(newclass); newclass=''; add=false">
           <md-icon>done</md-icon>
       </button>
       <button md-icon-button (click)="add=false">
