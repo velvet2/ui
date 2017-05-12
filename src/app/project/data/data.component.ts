@@ -31,7 +31,7 @@ export class DataComponent {
     list: boolean = true;
     selected: Set<number> = new Set<number>();
     selectedData: any;
-    setting: boolean = true;
+    setting: boolean = false;
 
     project: any;
 
@@ -73,8 +73,7 @@ export class DataComponent {
     }
 
     update_size(){
-        let w = this.stage.nativeElement.getBoundingClientRect().width;
-        this.dataSize = (w / this.zoomLevel) - 6 // margin;
+        this.dataSize = (window.innerWidth / this.zoomLevel) - 6 // margin;
     }
 
     select(index: any, multi: boolean = false){
