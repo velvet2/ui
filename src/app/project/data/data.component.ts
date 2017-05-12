@@ -1,4 +1,4 @@
-import { Component, Optional, ElementRef, ViewChild, HostListener } from '@angular/core';
+import { Component, Optional, ViewChild, HostListener } from '@angular/core';
 import { MdDialog, MdDialogRef } from '@angular/material';
 import { Http, RequestOptionsArgs, Headers } from '@angular/http';
 import { AppState } from '../../app.service';
@@ -51,6 +51,7 @@ export class DataComponent {
                 this.project = v;
                 this._data.getData(this.project.dataset).subscribe((v: any)=>{
                     this.datas = v['data'];
+                    console.log(this.datas.length)
                 });
             });
         });
