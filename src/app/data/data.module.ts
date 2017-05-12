@@ -14,7 +14,10 @@ import { ImageComponent } from './image/image.component';
         FlexLayoutModule
     ],
     declarations: [
-        ImageComponent
+      ImageComponent
+    ],
+    exports: [
+      ImageComponent
     ],
     providers: [],
     entryComponents: [],

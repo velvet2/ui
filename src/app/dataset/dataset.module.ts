@@ -19,9 +19,8 @@ import { DatasetDialog } from './dialog/create/dialog.component';
 import { UploadDatasetDialog } from './dialog/update/dialog.component';
 import { UploadComponent } from './dialog/upload/upload.component';
 
+import { LabelModule } from '../label/label.module';
 import { DataModule } from '../data/data.module';
-import { ImageComponent } from '../data';
-import { ClassComponent } from '../label';
 
 @NgModule({
     imports: [
@@ -33,7 +32,10 @@ import { ClassComponent } from '../label';
         // DataModule,
 
         NgxDatatableModule,
-        VirtualScrollModule
+        VirtualScrollModule,
+
+        LabelModule,
+        DataModule
     ],
     declarations: [
         DatasetComponent,
@@ -41,11 +43,7 @@ import { ClassComponent } from '../label';
         UploadComponent,
         UploadDatasetDialog,
         DataComponent,
-        DataContainerComponent,
-
-        ImageComponent,
-
-        ClassComponent
+        DataContainerComponent
     ],
     providers: [
         DatasetService,
