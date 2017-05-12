@@ -30,10 +30,25 @@
                 (click)="list=false; refresh()">
             <md-icon>view_list</md-icon>
         </button>
+
+        <button md-icon-button
+                (click)="toggleSetting()">
+            <md-icon>settings</md-icon>
+        </button>
     </md-toolbar>
+
+
+    <md-card class="no-margin overlay md-elevation-z24" *ngIf="setting">
+      <div>Simple card</div>
+      <div>Simple card</div>
+      <div>Simple card</div>
+      <div>Simple card</div>
+      <div>Simple card</div>
+    </md-card>
 
     <virtual-scroll *ngIf="list"
                     [items]="datas"
+                    style="overflow-y:overlay"
                     (update)="_datas = $event;"
                     [childHeight]="dataSize"
                     (change)="updateIndex($event)"

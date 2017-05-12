@@ -41,6 +41,7 @@
     </md-toolbar>
 
     <virtual-scroll *ngIf="list"
+                    style="overflow-y:overlay"
                     [items]="datas"
                     (update)="_datas = $event;"
                     [childHeight]="dataSize"

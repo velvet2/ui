@@ -6,3 +6,15 @@
 .data {
     float:left;
 }
+
+.no-margin{
+  margin: 0;
+}
+
+.overlay {
+  position: absolute;
+  width: 100%;
+  z-index: 2;
+  top: 128px;
+
+}

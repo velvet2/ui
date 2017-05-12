@@ -25,13 +25,13 @@ export class DataComponent {
     private sub: any;
     private sub2: any;
 
-    @ViewChild('stage') stage: ElementRef;
     start: number = 0;
     zoomLevel : number = 3;
     dataSize: number = 0;
     list: boolean = true;
     selected: Set<number> = new Set<number>();
     selectedData: any;
+    setting: boolean = true;
 
     project: any;
 
@@ -58,6 +58,8 @@ export class DataComponent {
 
     ngAfterViewInit(){
         this.update_size();
+        // console.log(this.vs)
+        // this.vs.refresh()
     }
 
     zoom_in(){
@@ -83,6 +85,10 @@ export class DataComponent {
             this.selected.add(index);
             this.selectedData = this.datas[index];
         }
+    }
+
+    toggleSetting(){
+      this.setting = !this.setting;
     }
 
     refresh(){
