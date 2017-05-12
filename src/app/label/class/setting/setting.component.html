@@ -1,1 +1,44 @@
-class setting
+<div fxLayout="row">
+  <div fxLayout="column" fxFlex="33">
+    <div fxLayout="row" fxLayoutAlign="space-between center">
+      <span class="title">Class</span>
+      <button md-icon-button (click)="add=true;focus()">
+          <md-icon>add</md-icon>
+      </button>
+    </div>
+    <div fxLayout="row" fxLayoutAlign="space-between center">
+      <span>Item 1</span>
+      <button md-icon-button>
+          <md-icon>close</md-icon>
+      </button>
+    </div>
+    <div fxLayout="row" fxLayoutAlign="space-between center">
+      <span>Item 2</span>
+      <button md-icon-button>
+          <md-icon>close</md-icon>
+      </button>
+    </div>
+
+    <div fxLayout="row" fxLayoutAlign="center" *ngIf="add">
+      <md-input-container fxFlex>
+        <input #input mdInput placeholder="New Class" [(ngModel)]="newclass" (keydown.enter)="log()">
+      </md-input-container>
+      <button md-icon-button (click)="add=false">
+          <md-icon>done</md-icon>
+      </button>
+      <button md-icon-button (click)="add=false">
+          <md-icon>close</md-icon>
+      </button>
+    </div>
+
+  </div>
+
+  <!-- <div fxFlex="33" class=".comp">
+    <span>Class</span>
+    <md-list>
+      <md-list-item>Item 1</md-list-item>
+      <md-list-item>Item 2</md-list-item>
+      <md-list-item>Item 3</md-list-item>
+    </md-list>
+  </div> -->
+</div>

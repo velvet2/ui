@@ -38,13 +38,13 @@
     </md-toolbar>
 
 
-    <md-card class="no-margin overlay md-elevation-z24" *ngIf="setting">
-      <div>Simple card</div>
-      <div>Simple card</div>
-      <div>Simple card</div>
-      <div>Simple card</div>
-      <div>Simple card</div>
-    </md-card>
+    <div class="no-margin overlay md-elevation-z24" *ngIf="setting">
+      <div style="position:relative; height:auto">
+        <md-card class="md-elevation-z24" style="height:100%">
+          <label-class-setting></label-class-setting>
+        </md-card>
+      </div>
+    </div>
 
     <virtual-scroll *ngIf="list"
                     [items]="datas"

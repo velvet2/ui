@@ -1,0 +1,15 @@
+md-list-item:hover{
+  background:red
+}
+
+.comp {
+  margin-left: 5px
+}
+
+button {
+  color: gray
+}
+
+.title {
+  font-weight: bold;
+}

@@ -18,6 +18,8 @@ import { VirtualScrollModule } from 'angular2-virtual-scroll';
 import { DataContainerComponent } from '../dataset/data/data.container.component';
 
 import { DatasetModule } from '../dataset';
+import { LabelModule } from '../label/label.module';
+import { ClassSettingComponent } from '../label/class/setting/setting.component';
 
 @NgModule({
   imports: [
@@ -27,12 +29,15 @@ import { DatasetModule } from '../dataset';
     ProjectRoutingModule,
     FlexLayoutModule,
     VirtualScrollModule,
-    DatasetModule
+    DatasetModule,
+    LabelModule
   ],
   declarations: [
       ProjectComponent,
       ProjectDialog,
-      DataComponent
+      DataComponent,
+
+      // ClassSettingComponent
   ],
   providers: [
       ProjectService,

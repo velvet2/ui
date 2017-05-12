@@ -31,7 +31,7 @@ export class DataComponent {
     list: boolean = true;
     selected: Set<number> = new Set<number>();
     selectedData: any;
-    setting: boolean = false;
+    setting: boolean = true;
 
     project: any;
 

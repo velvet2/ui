@@ -1,4 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { ClassService } from './class.service';
 
 @Component({
   selector: '[label-class]',
@@ -8,7 +9,7 @@ import { Component, OnInit, Input } from '@angular/core';
 export class ClassComponent implements OnInit {
     @Input() type: string;
 
-    constructor() { }
+    constructor(_class: ClassService) { }
 
     ngOnInit() {
 
