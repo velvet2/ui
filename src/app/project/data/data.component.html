@@ -37,7 +37,7 @@
     </md-toolbar>
 
     <div class="overlay-parent"
-        fxLayout="column"             
+        fxLayout="column"
         [class.invisible]="!setting">
         <div class="overlay"
             [class.full]="full">
@@ -70,7 +70,7 @@
                     [style.width.px]="dataSize"
                     [style.height.px]="dataSize"
                     style="margin:3px"
-                    (click)="select(start + i, true)">
+                    (click)="select(start + i, $event.ctrlKey || $event.metaKey)">
 
                     <data-container [data]="data">
                     </data-container>
