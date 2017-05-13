@@ -6,6 +6,11 @@
           <md-icon>add</md-icon>
       </button>
     </div>
+
+    <div fxLayout="row" fxLayoutAlign="none center" *ngIf="_config?.get('label').size == 0">
+      <span style="color:lightgray">No Class</span>
+    </div>
+
     <div fxLayout="row" fxLayoutAlign="none center" *ngFor="let c of _config?.get('label')">
       <span>{{c}}</span>
       <div fxFlex></div>

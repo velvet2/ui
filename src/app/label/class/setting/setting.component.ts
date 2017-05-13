@@ -42,10 +42,6 @@ export class ClassSettingComponent implements OnInit {
         this.cls = ['cls 1', 'cls 2', 'cls 3'];
     }
 
-    log(c){
-        console.log(c)
-    }
-
     addClass(cls: string){
         this._config = this._config.update('label', (lbl: any)=>{
             return lbl.push(cls)
