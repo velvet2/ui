@@ -89,7 +89,6 @@ export class DataComponent {
 
     toggleFull(){
         this.full = !this.full;
-        console.log(this.full)
     }
 
     refresh(){

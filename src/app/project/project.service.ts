@@ -9,10 +9,10 @@ export class ProjectService {
     getProject(): Observable<any> {
         return this._http.get('api/project')
             .map((data: Response) => {
-                return data.json()
+                return data.json();
             })
             .catch((data: Response) => {
-                return data.json()
+                return data.json();
             });
     }
 
@@ -33,7 +33,8 @@ export class ProjectService {
     }
 
     edit(id: number, name: string, config: any): Observable<any> {
-        return this._http.put('api/project/' + String(id), {name: name, config: config})
+        return this._http.put('api/project/' + String(id),
+                {name: name, config: JSON.stringify(config)})
             .map((data: Response) => {
                 return null;
             })
@@ -45,7 +46,16 @@ export class ProjectService {
     getOneProject(id: string): Observable<any> {
         return this._http.get('api/project/' + id)
             .map((data: Response) => {
-                return data.json()
+                let ret: any = data.json();
+                if(ret.config){
+                    try {
+                        ret.config = JSON.parse(ret.config)
+                    } catch (e){
+                        ret.config = {}
+                    }
+                }
+
+                return ret;
             })
             .catch((data: Response) => {
                 return data.json()

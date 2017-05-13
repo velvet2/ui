@@ -6,7 +6,7 @@
           <md-icon>add</md-icon>
       </button>
     </div>
-    <div fxLayout="row" fxLayoutAlign="none center" *ngFor="let c of cls">
+    <div fxLayout="row" fxLayoutAlign="none center" *ngFor="let c of _config?.get('label')">
       <span>{{c}}</span>
       <div fxFlex></div>
 
