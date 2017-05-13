@@ -36,10 +36,11 @@
         </button>
     </md-toolbar>
 
-    <div class="overlay-parent" fxLayout="column">
+    <div class="overlay-parent"
+        fxLayout="column"             
+        [class.invisible]="!setting">
         <div class="overlay"
-            [class.full]="full"
-            [class.invisible]="!setting">
+            [class.full]="full">
           <div style="position:relative; height:auto">
             <md-card style="height:100%">
               <label-class-setting [config]="project?.config"></label-class-setting>
