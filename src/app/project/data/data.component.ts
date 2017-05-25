@@ -5,6 +5,8 @@ import { AppState } from '../../app.service';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { DataService } from '../../dataset/data';
 import { ProjectService } from '../project.service';
+import { LabelBus } from '../../label/label.service';
+import { DataBus } from './data.service';
 
 import * as _ from 'lodash';
 
@@ -27,7 +29,7 @@ export class DataComponent {
     list: boolean = true;
     selected: Set<number> = new Set<number>();
     selectedData: any;
-    setting: boolean = true;
+    setting: boolean = false;
     full: boolean = false;
 
     project: any;
@@ -36,9 +38,11 @@ export class DataComponent {
                 private route: ActivatedRoute,
                 private router: Router,
                 private _data: DataService,
-                private _project: ProjectService){}
+                private _project: ProjectService,
+                private _label: LabelBus,
+                private _datab: DataBus){}
                 // private dialog: MdDialog,
-                // private _label: LabelService) { }
+                // private _label: LabelBus) { }
 
     ngOnInit(){
         this.sub = this.route.params.subscribe(params => {
@@ -48,6 +52,7 @@ export class DataComponent {
                 this.project = v;
                 this._data.getData(this.project.dataset_id).subscribe((v: any)=>{
                     this.datas = v['data'];
+                    this._datab.setData(this.datas);
                 });
             });
         });
@@ -55,8 +60,6 @@ export class DataComponent {
 
     ngAfterViewInit(){
         this.update_size();
-        // console.log(this.vs)
-        // this.vs.refresh()
     }
 
     zoom_in(){
@@ -81,6 +84,8 @@ export class DataComponent {
             this.selected.add(index);
             this.selectedData = this.datas[index];
         }
+
+        this._datab.setSelected(this.selected);
     }
 
     toggleSetting(){

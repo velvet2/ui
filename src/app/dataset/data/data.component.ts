@@ -5,7 +5,7 @@ import { AppState } from '../../app.service';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { DataService } from './data.service';
 
-// import { LabelService } from '../label/label.service';
+// import { LabelBus } from '../label/label.service';
 // import { Label } from '../label/label.class';
 // import { LabelDialog } from '../dialog/label/label.dialog';
 import * as _ from 'lodash';
@@ -36,7 +36,7 @@ export class DataComponent {
                 private router: Router,
                 private _data: DataService){}
                 // private dialog: MdDialog,
-                // private _label: LabelService) { }
+                // private _label: LabelBus) { }
 
     ngOnInit(){
         this.sub = this.route.params.subscribe(params => {

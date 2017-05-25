@@ -21,6 +21,9 @@ import { DatasetModule } from '../dataset';
 import { LabelModule } from '../label/label.module';
 import { ClassSettingComponent } from '../label/class/setting/setting.component';
 
+import { DataBus } from './data'
+import { LabelBus } from '../label';
+
 @NgModule({
   imports: [
     CommonModule,
@@ -36,13 +39,14 @@ import { ClassSettingComponent } from '../label/class/setting/setting.component'
       ProjectComponent,
       ProjectDialog,
       DataComponent,
-
       // ClassSettingComponent
   ],
   providers: [
       ProjectService,
       DatasetService,
-      DataService
+      DataService,
+      DataBus,
+      // LabelBus
   ],
   entryComponents: [
       ProjectDialog

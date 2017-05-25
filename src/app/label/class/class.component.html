@@ -1,3 +1,7 @@
 <div style="position:absolute;width:100%">
-    <span [class.inference]="type=='inference'">Class 1</span>
+    <span *ngIf="type=='inference'" class="inference">Class 1</span>
+
+    <span *ngIf="type!='inference'">
+      {{ data.label }}
+    </span>
 </div>
