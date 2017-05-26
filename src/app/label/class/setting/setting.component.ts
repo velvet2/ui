@@ -13,6 +13,7 @@ import { LabelBus } from '../../label.service';
 export class ClassSettingComponent implements OnInit {
     @Input()
     set config(c: any){
+      console.log("config", c)
         if(c){
             this._config = Map(c);
             this._config = this._config.update('label', (lbl: any) => {
@@ -75,8 +76,12 @@ export class ClassSettingComponent implements OnInit {
 
       if(this.isKey(ev.which)){
         this.userInput += ev.key;
+        if ( this.checkInputLabel() ){
+          this.userInput = '';
+        }
       } else if ( ev.code == "Escape"){
         console.log("user cancel label")
+        this.userInput = '';
       } else if ( ev.code == "Delete"){
         console.log("user delete label")
       } else if (ev.code == "Backspace") {
@@ -85,11 +90,20 @@ export class ClassSettingComponent implements OnInit {
         }
       } else if (ev.code == "Enter"){
         console.log("user enter label");
+        this.checkInputLabel();
         this.userInput = '';
-      }
+      }123456432
       console.log(this.userInput, ev)
     }
 
+    checkInputLabel(){
+      if( this._config.get('label').indexOf(this.userInput) != -1 ) {
+        console.log("found a match!! ");
+        console.log(
+          this._data.selected
+        )
+      };
+    }
     isKey(charCode: number){
       return  (charCode >= 48 && charCode <= 57 ) ||
               (charCode >= 65 && charCode <= 90 ) ||

@@ -46,16 +46,7 @@ export class ProjectService {
     getOneProject(id: string): Observable<any> {
         return this._http.get('api/project/' + id)
             .map((data: Response) => {
-                let ret: any = data.json();
-                if(ret.config){
-                    try {
-                        ret.config = JSON.parse(ret.config)
-                    } catch (e){
-                        ret.config = {}
-                    }
-                }
-
-                return ret;
+                return data.json();
             })
             .catch((data: Response) => {
                 return data.json()

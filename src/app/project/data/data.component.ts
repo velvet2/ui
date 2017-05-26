@@ -50,10 +50,7 @@ export class DataComponent {
 
             this._project.getOneProject(this.id).subscribe((v: any)=>{
                 this.project = v;
-                this._data.getData(this.project.dataset_id).subscribe((v: any)=>{
-                    this.datas = v['data'];
-                    this._datab.setData(this.datas);
-                });
+                this.datas =  this.project.datas
             });
         });
     }
