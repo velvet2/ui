@@ -43,7 +43,7 @@
             [class.full]="full">
           <div style="position:relative; height:auto">
             <md-card style="height:100%">
-              <label-class-setting [config]="project?.config" (update)="updateConfig($event)"></label-class-setting>
+              <label-class-setting [config]="project?.config" [project]="project?.id" (update)="updateConfig($event)"></label-class-setting>
             </md-card>
           </div>
         </div>
@@ -56,21 +56,21 @@
         </button>
     </div>
 
-    <virtual-scroll *ngIf="list"
+    <virtual-scroll #vs
+                    *ngIf="list"
                     [items]="datas"
                     style="overflow-y:overlay"
                     (update)="_datas = $event;"
-                    [childHeight]="dataSize"
-                    (change)="updateIndex($event)"
+                    [childHeight]="dataSize" 
                     [childWidth]="dataSize">
 
             <div    *ngFor="let data of _datas; let i = index"
                     class="data"
-                    [class.highlight]="selected.has(start + i)"
+                    [class.highlight]="selected.has(data.id)"
                     [style.width.px]="dataSize"
                     [style.height.px]="dataSize"
                     style="margin:3px"
-                    (click)="select(start + i, $event.ctrlKey || $event.metaKey)">
+                    (click)="select(data.id, $event.ctrlKey || $event.metaKey)">
 
                     <data-container [data]="data">
                     </data-container>
@@ -84,11 +84,10 @@
                         (change)="updateIndex($event)">
 
                 <div    *ngFor="let data of _datas; let i = index"
-                        (click)="selected = data; selected_index = start + i"
                         [style.height.vw]="25"
                         style="margin:3px"
-                        (click)="select(start + i, false)"
-                        [class.highlight]="selected.has(start + i)">
+                        (click)="select(data.id, false)"
+                        [class.highlight]="selected.has(data.id)">
                         <data-container [data]="data">
                         </data-container>
                 </div>

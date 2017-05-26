@@ -53,4 +53,15 @@ export class ProjectService {
             });
     }
 
+    updateLabel(project_id: any, data_id: Array<any>, label: any, inference: any){
+      return this._http.post('api/project/data/' + String(project_id),
+            { data: data_id, label: label, inference: inference})
+            .map((data: Response) =>{
+              return null;
+            })
+            .catch((data: Response) =>{
+              return null
+            });
+    }
+
 }

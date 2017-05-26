@@ -1,7 +1,15 @@
-<div style="position:absolute;width:100%">
-    <span *ngIf="type=='inference'" class="inference">Class 1</span>
+<div style="position:absolute;width:100%;top:90%">
+    <span *ngIf="type=='inference'" class="inference">
+      <md-chip-list style="width:50%">
+        <md-chip selected="true" color="accent" *ngIf="data?.label">{{ data?.label }}</md-chip>
+        <!-- <md-chip selected="true" color="accent">Inference 1</md-chip> -->
+      </md-chip-list>
+    </span>
 
-    <span *ngIf="type!='inference'">
-      {{ data.label }}
+    <span *ngIf="type!='inference'" style="padding-top:90%">
+      <md-chip-list style="width:50%">
+        <md-chip selected="true" color="primary" *ngIf="data?.label">{{ data?.label }}</md-chip>
+        <!-- <md-chip selected="true" color="accent">Label 1</md-chip> -->
+      </md-chip-list>
     </span>
 </div>

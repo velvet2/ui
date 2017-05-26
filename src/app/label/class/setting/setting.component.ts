@@ -3,7 +3,11 @@ import { Component, OnInit, Input,
         EventEmitter, HostListener } from '@angular/core';
 import { Map, List } from 'immutable';
 import { DataBus } from '../../../project/data/';
+import { ProjectService } from '../../../project/project.service';
 import { LabelBus } from '../../label.service';
+import { each, cloneDeep } from 'lodash';
+import { AppState } from '../../../app.service';
+
 
 @Component({
   selector: 'label-class-setting',
@@ -13,7 +17,6 @@ import { LabelBus } from '../../label.service';
 export class ClassSettingComponent implements OnInit {
     @Input()
     set config(c: any){
-      console.log("config", c)
         if(c){
             this._config = Map(c);
             this._config = this._config.update('label', (lbl: any) => {
@@ -31,6 +34,8 @@ export class ClassSettingComponent implements OnInit {
     }
     _config: any;
 
+    @Input() project: number;
+
     @Output() update: EventEmitter<any> = new EventEmitter<any>();
 
     add: boolean = false;
@@ -39,7 +44,7 @@ export class ClassSettingComponent implements OnInit {
 
     userInput: string = '';
 
-    constructor(private _data: DataBus) { }
+    constructor(private _data: DataBus, private _project: ProjectService, private _state: AppState) { }
 
     ngOnInit() {}
 
@@ -80,10 +85,9 @@ export class ClassSettingComponent implements OnInit {
           this.userInput = '';
         }
       } else if ( ev.code == "Escape"){
-        console.log("user cancel label")
         this.userInput = '';
       } else if ( ev.code == "Delete"){
-        console.log("user delete label")
+        this.deleteLabel();
       } else if (ev.code == "Backspace") {
         if(this.userInput.length > 0){
           this.userInput = this.userInput.slice(0,-1)
@@ -92,17 +96,34 @@ export class ClassSettingComponent implements OnInit {
         console.log("user enter label");
         this.checkInputLabel();
         this.userInput = '';
-      }123456432
-      console.log(this.userInput, ev)
+      }
     }
 
-    checkInputLabel(){
+    deleteLabel(){
+      this._project.updateLabel(this.project, Array.from(this._data.selected), {}, undefined)
+        .subscribe(()=>{
+          each(this._data.datas, (v: any)=>{
+            if (this._data.selected.has(v.id)){
+              v.label = undefined
+            }
+          })
+        });
+    }
+
+    checkInputLabel(): boolean{
       if( this._config.get('label').indexOf(this.userInput) != -1 ) {
-        console.log("found a match!! ");
-        console.log(
-          this._data.selected
-        )
+        let userInput = this.userInput;
+        this._project.updateLabel(this.project, Array.from(this._data.selected), {label: this.userInput}, undefined)
+          .subscribe(()=>{
+            each(this._data.datas, (v: any)=>{
+              if (this._data.selected.has(v.id)){
+                v.label = {label: userInput }
+              }
+            })
+          });
+        return true;
       };
+      return false
     }
     isKey(charCode: number){
       return  (charCode >= 48 && charCode <= 57 ) ||

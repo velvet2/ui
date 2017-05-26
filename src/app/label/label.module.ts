@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
 import { ClassComponent, ClassSettingComponent, LabelBus } from './index';
-import { MdListModule, MdIconModule, MdButtonModule, MdInputModule } from '@angular/material';
+import { MdListModule, MdIconModule, MdButtonModule, MdInputModule, MdChipsModule } from '@angular/material';
 
 import { FlexLayoutModule } from '@angular/flex-layout';
 
@@ -15,7 +15,8 @@ import { FlexLayoutModule } from '@angular/flex-layout';
     MdInputModule,
     FlexLayoutModule,
     CommonModule,
-    FormsModule
+    FormsModule,
+    MdChipsModule
   ],
   declarations: [
     ClassComponent,
