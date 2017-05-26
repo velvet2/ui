@@ -133,6 +133,18 @@ export class DataComponent {
       })
     }
 
+    @HostListener('document:keydown', ['$event'])
+    onKeyDown(ev: any) {
+      if (ev.srcElement != document.body){
+        return;
+      }
+
+      if ((ev.key ==  "a" || ev.key == 'A') && ev.ctrlKey ){
+        ev.preventDefault();
+        this.selected = new Set<number>(_.map(this.datas, (v)=> v.id))
+      }
+    }
+
     ngOnDestroy(){
         this.sub.unsubscribe();
         this.sub2.unsubscribe();
