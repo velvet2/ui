@@ -203,6 +203,25 @@ export class DataComponent {
     updateIndex(e: any){
         this.start = e.start;
     }
+
+    updateConfig(e: any){
+      console.log(e);
+      this._project.edit(this.id, undefined, e).subscribe((v: any)=>{
+        console.log("config updated")
+      })
+      // edit(id: number, name: string, config: any): Observable<any> {
+      //     return this._http.put('api/project/' + String(id),
+      //             {name: name, config: JSON.stringify(config)})
+      //         .map((data: Response) => {
+      //             return null;
+      //         })
+      //         .catch((data: Response) => {
+      //             return null;
+      //         });
+      // }
+
+
+    }
     //
     // ngOnDestroy(){
     //     this.sub.unsubscribe();

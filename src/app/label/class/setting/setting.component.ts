@@ -17,7 +17,7 @@ export class ClassSettingComponent implements OnInit {
             this._config = Map(c);
             this._config = this._config.update('label', (lbl: any) => {
                 if(lbl){
-                    return lbl;
+                    return List(lbl);
                 } else {
                     return List()
                 }
@@ -30,34 +30,31 @@ export class ClassSettingComponent implements OnInit {
     }
     _config: any;
 
-    @Output() change: EventEmitter<any> = new EventEmitter<any>();
+    @Output() update: EventEmitter<any> = new EventEmitter<any>();
 
     add: boolean = false;
     newclass: string = "";
     @ViewChild('input') input: ElementRef;
 
-    cls: Array<string> = new Array<string>();
     userInput: string = '';
-    charMatcher = /[A-Za-z0-9]/;
 
     constructor(private _data: DataBus) { }
 
-    ngOnInit() {
-      console.log(this._data)
-        this.cls = ['cls 1', 'cls 2', 'cls 3'];
-    }
+    ngOnInit() {}
 
     addClass(cls: string){
         this._config = this._config.update('label', (lbl: any)=>{
             return lbl.push(cls)
         });
+        this.emit()
     }
 
     delete(cls: string){
         this._config = this._config.update('label', (lbl: any)=>{
             let index = lbl.indexOf(cls);
-            lbl.splice(index, 1)
+            return  lbl.delete(index);
         });
+        this.emit()
     }
 
     focus(){
@@ -66,8 +63,16 @@ export class ClassSettingComponent implements OnInit {
       })
     }
 
+    emit(){
+      this.update.emit(this._config.toJSON())
+    }
+
     @HostListener('document:keydown', ['$event'])
     onKeyDown(ev: any) {
+      if (ev.srcElement != document.body){
+        return;
+      }
+
       if(this.isKey(ev.which)){
         this.userInput += ev.key;
       } else if ( ev.code == "Escape"){
@@ -82,6 +87,7 @@ export class ClassSettingComponent implements OnInit {
         console.log("user enter label");
         this.userInput = '';
       }
+      console.log(this.userInput, ev)
     }
 
     isKey(charCode: number){

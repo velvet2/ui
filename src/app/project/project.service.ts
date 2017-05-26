@@ -34,7 +34,7 @@ export class ProjectService {
 
     edit(id: number, name: string, config: any): Observable<any> {
         return this._http.put('api/project/' + String(id),
-                {name: name, config: JSON.stringify(config)})
+                {name: name, config: config})
             .map((data: Response) => {
                 return null;
             })
