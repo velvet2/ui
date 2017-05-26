@@ -2,7 +2,7 @@
     fxLayout="column">
     <md-toolbar color="lightgray" fxLayout="row">
         <md-input-container>
-            <input mdInput placeholder="Search">
+            <input mdInput placeholder="Search" [ngModel]="search" (ngModelChange)="search$.next($event)">
         </md-input-container>
 
         <span fxFlex></span>
@@ -61,7 +61,7 @@
                     [items]="datas"
                     style="overflow-y:overlay"
                     (update)="_datas = $event;"
-                    [childHeight]="dataSize" 
+                    [childHeight]="dataSize"
                     [childWidth]="dataSize">
 
             <div    *ngFor="let data of _datas; let i = index"

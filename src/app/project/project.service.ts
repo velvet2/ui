@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Http, Response } from '@angular/http';
+import { Http, Response, RequestOptionsArgs } from '@angular/http';
 import { Observable } from 'rxjs';
 
 @Injectable()
@@ -43,8 +43,15 @@ export class ProjectService {
             });
     }
 
-    getOneProject(id: string): Observable<any> {
-        return this._http.get('api/project/' + id)
+    getOneProject(id: string, filter: string = ''): Observable<any> {
+        let params
+        if(filter.length > 0){
+          params = { "search" : btoa(filter), "encode": 1}
+        }
+
+        return this._http.get('api/project/' + id, {
+          "params": params
+        })
             .map((data: Response) => {
                 return data.json();
             })

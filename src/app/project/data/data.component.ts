@@ -8,6 +8,8 @@ import { ProjectService } from '../project.service';
 import { LabelBus } from '../../label/label.service';
 import { DataBus } from './data.service';
 import { VirtualScrollComponent } from 'angular2-virtual-scroll';
+import * as jsep from 'jsep'
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 
 import * as _ from 'lodash';
 
@@ -24,6 +26,7 @@ export class DataComponent {
 
     private id: any;
     private sub: any;
+    private sub2: any;
 
     start: number = 0;
     zoomLevel : number = 3;
@@ -33,6 +36,8 @@ export class DataComponent {
     selectedData: any;
     setting: boolean = false;
     full: boolean = false;
+    search: string = '';
+    search$: BehaviorSubject<string> = new BehaviorSubject<string>('');
 
     project: any;
 
@@ -60,6 +65,24 @@ export class DataComponent {
         this.sub = this._state.subscribe('project.render', ()=>{
           this.vs.refresh();
         })
+
+        this.sub2 = this.search$.debounceTime(500).subscribe((v: any)=>{
+          try{
+            jsep(v)
+          } catch (e) {
+            console.log("error")
+          } finally {
+            this.doSearch(v)
+          }
+        });
+    }
+
+    doSearch(query: any){
+      this._project.getOneProject(this.id, query).subscribe((v: any)=>{
+          this.project = v;
+          this.datas =  this.project.datas
+          this._datab.datas = this.datas;
+      });
     }
 
     ngAfterViewInit(){
@@ -112,5 +135,6 @@ export class DataComponent {
 
     ngOnDestroy(){
         this.sub.unsubscribe();
+        this.sub2.unsubscribe();
     }
 }
