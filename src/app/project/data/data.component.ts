@@ -139,9 +139,10 @@ export class DataComponent {
         return;
       }
 
-      if ((ev.key ==  "a" || ev.key == 'A') && ev.ctrlKey ){
+      if ((ev.key ==  "a" || ev.key == 'A') && (ev.ctrlKey || ev.metaKey )){
         ev.preventDefault();
         this.selected = new Set<number>(_.map(this.datas, (v)=> v.id))
+        this._datab.setSelected(this.selected);
       }
     }
 
