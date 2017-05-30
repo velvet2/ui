@@ -104,14 +104,13 @@ export class DataComponent {
     }
 
     select(index: any, multi: boolean = false){
-        if(multi){
+        if ( multi ) {
             this.selected.add(index);
         } else {
             this.selected = new Set<number>();
             this.selected.add(index);
-            this.selectedData = this.datas[index];
+            this.selectedData = _.find(this.datas, (v)=> v.id == index);
         }
-
         this._datab.setSelected(this.selected);
     }
 

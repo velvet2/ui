@@ -66,30 +66,37 @@
 
             <div    *ngFor="let data of _datas; let i = index"
                     class="data"
-                    [class.highlight]="selected.has(data.id)"
                     [style.width.px]="dataSize"
                     [style.height.px]="dataSize"
                     style="margin:3px"
                     (click)="select(data.id, $event.ctrlKey || $event.metaKey)">
-
                     <data-container [data]="data">
                     </data-container>
+                    <div class="highlight-box"
+                        [class.highlight]="selected.has(data.id)"
+                        [style.width.px]="dataSize"
+                        [style.height.px]="dataSize"
+                        [style.top.px]="-dataSize">
+                    </div>
             </div>
     </virtual-scroll>
 
     <div *ngIf="!list" fxLayout="row">
         <virtual-scroll fxFlex="25"
                         [items]="datas"
-                        (update)="_datas = $event;"
-                        (change)="updateIndex($event)">
+                        (update)="_datas = $event;">
 
                 <div    *ngFor="let data of _datas; let i = index"
                         [style.height.vw]="25"
                         style="margin:3px"
-                        (click)="select(data.id, false)"
-                        [class.highlight]="selected.has(data.id)">
+                        (click)="select(data.id, false)">
                         <data-container [data]="data">
                         </data-container>
+                        <div class="highlight-box"
+                            [class.highlight]="selected.has(data.id)"
+                            [style.height.vw]="25"
+                            [style.top.vw]="-25">
+                        </div>
                 </div>
         </virtual-scroll>
 
