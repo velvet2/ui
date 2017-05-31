@@ -12,7 +12,9 @@
     </div>
 
     <div fxLayout="row" fxLayoutAlign="none center" *ngFor="let c of _config?.get('label')">
-      <span>{{c}}</span>
+      <div [style.background]="c.color"
+          style="height: 20px; width: 20px;   margin-right:5px;"></div>
+      <span>{{c.class}}</span>
       <div fxFlex></div>
 
       <button md-icon-button (click)="delete(c)">
@@ -21,11 +23,26 @@
     </div>
 
     <div fxLayout="row" fxLayoutAlign="center" *ngIf="add">
+      <input  fxFlexAlign="center"
+              [(colorPicker)]="color"
+              [style.background]="color"
+              [cpPositionRelativeToArrow]="false"
+              style="  width: 20px;
+                height: 20px;
+                user-select: none;
+                border: 0px solid;
+                cursor: pointer;
+                margin-right:5px;
+                text-indent: -9999px;"
+              [value]="color"
+              [cpAlphaChannel]="'disabled'"
+              [cpPresetColors]="['#fff', '#000', '#2889e9', '#e920e9', '#fff500', 'rgb(236,64,64)']"/>
+
       <md-input-container fxFlex>
         <input #input mdInput placeholder="New Class" [(ngModel)]="newclass"
-            (keydown.enter)="addClass(newclass); newclass=''; add=false">
+            (keydown.enter)="addClass(newclass, color); newclass=''; add=false">
       </md-input-container>
-      <button md-icon-button (click)="addClass(newclass); newclass=''; add=false">
+      <button md-icon-button (click)="addClass(newclass, color); newclass=''; add=false">
           <md-icon>done</md-icon>
       </button>
       <button md-icon-button (click)="add=false">
@@ -34,7 +51,7 @@
     </div>
 
   </div>
-  
+
   <!-- <div fxFlex="33" class=".comp">
     <span>Class</span>
     <md-list>

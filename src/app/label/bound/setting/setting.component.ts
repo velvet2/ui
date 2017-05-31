@@ -46,14 +46,15 @@ export class BoundSettingComponent implements OnInit {
     @ViewChild('input') input: ElementRef;
 
     userInput: string = '';
+    color: string = "#000";
 
     constructor(private _data: DataBus, private _project: ProjectService, private _state: AppState, private _bound: BoundSettingService) { }
 
     ngOnInit() {}
 
-    addClass(cls: string){
+    addClass(cls: string, color: string){
         this._config = this._config.update('label', (lbl: any)=>{
-            return lbl.push(cls)
+            return lbl.push({ class: cls, color: color})
         });
         this.emit()
     }

@@ -13,3 +13,18 @@ button {
 .title {
   font-weight: bold;
 }
+
+:host >>> color-picker {
+  position: fixed;
+  z-index: 2;
+  top: 0px;
+  left: 0px;
+}
+
+.color-box {
+  width: 20px;
+  height: 20px;
+  user-select: none;
+  border: 0px solid;
+  cursor: pointer;
+}

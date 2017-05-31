@@ -8,6 +8,7 @@ import { BoundComponent, BoundSettingComponent, BoundSettingService,
 import { MdListModule, MdIconModule, MdButtonModule, MdInputModule, MdChipsModule } from '@angular/material';
 
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { ColorPickerModule } from 'ngx-color-picker';
 
 @NgModule({
   imports: [
@@ -18,7 +19,8 @@ import { FlexLayoutModule } from '@angular/flex-layout';
     FlexLayoutModule,
     CommonModule,
     FormsModule,
-    MdChipsModule
+    MdChipsModule,
+    ColorPickerModule
   ],
   declarations: [
     ClassComponent,

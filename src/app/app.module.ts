@@ -12,6 +12,8 @@ import { UserModule } from './user/user.module';
 import { DatasetModule } from './dataset/dataset.module';
 import { ProjectModule } from './project/project.module';
 
+import { ColorPickerModule } from 'ngx-color-picker';
+
 import { AppState } from './app.service';
 
 @NgModule({
@@ -25,6 +27,8 @@ import { AppState } from './app.service';
     MaterialModule,
     FlexLayoutModule,
     BrowserAnimationsModule,
+
+    ColorPickerModule,
 
     AppRoutingModule,
     UserModule,
