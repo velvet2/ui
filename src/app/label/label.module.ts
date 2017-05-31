@@ -5,10 +5,12 @@ import { FormsModule } from '@angular/forms';
 import { BoundComponent, BoundSettingComponent, BoundSettingService,
         ClassComponent, ClassSettingComponent,
         LabelBus } from './index';
-import { MdListModule, MdIconModule, MdButtonModule, MdInputModule, MdChipsModule } from '@angular/material';
+import { MdListModule, MdIconModule, MdButtonModule,
+        MdInputModule, MdChipsModule, MdDialogModule } from '@angular/material';
 
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { ColorPickerModule } from 'ngx-color-picker';
+import { NoClassDialogComponent } from './bound/dialog/noclass.component';
 
 @NgModule({
   imports: [
@@ -20,13 +22,16 @@ import { ColorPickerModule } from 'ngx-color-picker';
     CommonModule,
     FormsModule,
     MdChipsModule,
-    ColorPickerModule
+    ColorPickerModule,
+    MdDialogModule
   ],
   declarations: [
     ClassComponent,
     ClassSettingComponent,
+
     BoundComponent,
-    BoundSettingComponent
+    BoundSettingComponent,
+    NoClassDialogComponent
   ],
   exports: [
     ClassComponent,
@@ -37,6 +42,9 @@ import { ColorPickerModule } from 'ngx-color-picker';
   providers: [
     LabelBus,
     BoundSettingService
+  ],
+  entryComponents:[
+    NoClassDialogComponent
   ]
 })
 export class LabelModule { }

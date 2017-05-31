@@ -4,6 +4,8 @@ import { min, max, each, get } from 'lodash';
 import { ProjectService } from '../../project/project.service';
 import { BoundSettingService } from './setting/setting.service';
 import { DataBus } from '../../project/data/';
+import { MdDialog, MdDialogRef } from '@angular/material';
+import { NoClassDialogComponent } from './dialog/noclass.component';
 
 @Component({
   selector: '[label-bound]',
@@ -16,7 +18,11 @@ export class BoundComponent implements OnInit {
     @Input()
     set data(d: any){
       this.__data = d;
-      this.populateStage();
+      if ( this.skipEvent ){
+        this.skipEvent = false;
+      } else {
+        this.populateStage();
+      }
     }
     __data: any
 
@@ -40,7 +46,8 @@ export class BoundComponent implements OnInit {
     constructor(private el: ElementRef,
                 private _project: ProjectService,
                 private _bound: BoundSettingService,
-                private _data: DataBus) { }
+                private _data: DataBus,
+                private _dialog: MdDialog) { }
     dataHeight: number;
     dataWidth: number;
     scale: number = 1;
@@ -49,12 +56,17 @@ export class BoundComponent implements OnInit {
     stage: any;
     ready: boolean = false;
     blockEvent: boolean = false;
+    skipEvent: boolean = false;
 
     ngOnInit() {
         // console.log(fabric)
       // console.log(this.data)
       // console.log(this.data)
     }
+
+    // ngOnChanges(c: any){
+    //     console.log(c.data.currentValue, c.data.previousValue)
+    // }
 
     populateStage(){
         if(this.stage){
@@ -96,6 +108,13 @@ export class BoundComponent implements OnInit {
           this.stage.on("object:modified", (e: any)=>{
               this._collectObject();
           });
+
+          this.stage.on("object:selected", (e: any)=>{
+              console.log(e)
+            //   this._collectObject();
+          });
+
+
           this.populateStage()
         });
     }
@@ -114,6 +133,7 @@ export class BoundComponent implements OnInit {
           obj = undefined
         }
 
+        this.skipEvent = true;
         this._project.updateLabel(this._bound.projectID, [this.source.id], {box: obj}, undefined)
           .subscribe(()=>{
             each(this._data.datas, (v: any)=>{
@@ -122,7 +142,6 @@ export class BoundComponent implements OnInit {
               }
             })
           });
-
     }
 
     setSize(height: number, width: number){
@@ -135,7 +154,13 @@ export class BoundComponent implements OnInit {
     addNewRect(x: number, y: number){
       let width, height;
       width = this.dataWidth * this.scale * 0.1;
-      height = width
+      height = width;
+
+      if(this._bound.getClass() == undefined){
+        this._dialog.open(NoClassDialogComponent);
+        return;
+      }
+
 
       x = max([0, x - width / 2])
       y = max([0, y - height / 2])
@@ -147,6 +172,7 @@ export class BoundComponent implements OnInit {
         width = this.dataWidth * this.scale * 0.1;
         height = width
       }
+
 
       this.stage.add(new fabric.Rect({
          left: x,
