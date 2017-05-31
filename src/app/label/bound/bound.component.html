@@ -7,7 +7,7 @@
             (dblclick)="addNewRect($event.offsetX, $event.offsetY)"
             (keydown.delete)="delete()"
             (keydown.backspace)="delete()"
-
+            (keydown)="assignLabel()"
             [style.transform]="'scale('+ scale + ')'">
       <canvas #canvas></canvas>
     </div>

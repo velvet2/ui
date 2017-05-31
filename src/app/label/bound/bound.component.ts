@@ -59,23 +59,17 @@ export class BoundComponent implements OnInit {
     populateStage(){
         if(this.stage){
           this.blockEvent = true;
-          console.log("blockEvent")
           this.stage.clear()
           each(get(this.__data, 'box'), (v: any)=>{
               this.addRect(v.x, v.y, v.w, v.h, v.theta || 0)
-              console.log("adding", v)
           });
           this.blockEvent = false;
-          console.log(this.__data)
-          console.log("unblock Event")
         }
     }
 
     init(){
         let dimension = this.el.nativeElement.getBoundingClientRect()
         if ( dimension.width == 0 || this.ready ){
-          // refuse to process
-          console.log("stop processing")
           return
         }
         this.ready = true;
@@ -120,8 +114,6 @@ export class BoundComponent implements OnInit {
           obj = undefined
         }
 
-        console.log("emit", obj)
-
         this._project.updateLabel(this._bound.projectID, [this.source.id], {box: obj}, undefined)
           .subscribe(()=>{
             each(this._data.datas, (v: any)=>{
@@ -161,11 +153,11 @@ export class BoundComponent implements OnInit {
          top: y,
          width: width,
          height: height,
-         stroke: 'yellow',
+         stroke: this._bound.getClass().color,
          strokeWidth: 2,
          angle: 0,
          fill: 'rgba(0,0,0,0)',
-         cornerColor: 'yellow',
+         cornerColor: this._bound.getClass().color,
          cornerSize: 18,
          transparentCorners: false
      }));
@@ -186,5 +178,9 @@ export class BoundComponent implements OnInit {
       });
 
       this._collectObject();
+    }
+
+    assignLabel(){
+      console.log("assign label")
     }
 }

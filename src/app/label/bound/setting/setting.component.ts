@@ -50,7 +50,9 @@ export class BoundSettingComponent implements OnInit {
 
     constructor(private _data: DataBus, private _project: ProjectService, private _state: AppState, private _bound: BoundSettingService) { }
 
-    ngOnInit() {}
+    ngOnInit() {
+      this._bound.class = this.config.get('label').toArray()
+    }
 
     addClass(cls: string, color: string){
         this._config = this._config.update('label', (lbl: any)=>{
@@ -75,5 +77,6 @@ export class BoundSettingComponent implements OnInit {
 
     emit(){
       this.update.emit(this._config.toJSON())
+      this._bound.class = this.config.get('label').toArray()
     }
 }
