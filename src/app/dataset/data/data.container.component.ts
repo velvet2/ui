@@ -5,9 +5,8 @@ import { Component, Input } from '@angular/core';
   templateUrl: './data.container.component.html'
 })
 export class DataContainerComponent {
-    @Input() data: any
+    @Input() data: any;
+    @Input() type: any;
 
-    ngOnInit(){
-
-    }
+    ngOnInit(){}
 }

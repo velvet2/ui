@@ -70,7 +70,7 @@
                     [style.height.px]="dataSize"
                     style="margin:3px"
                     (click)="select(data.id, $event.ctrlKey || $event.metaKey)">
-                    <data-container [data]="data">
+                    <data-container [data]="data" [type]="project.label">
                     </data-container>
                     <div class="highlight-box"
                         [class.highlight]="selected.has(data.id)"
@@ -90,7 +90,7 @@
                         [style.height.vw]="25"
                         style="margin:3px"
                         (click)="select(data.id, false)">
-                        <data-container [data]="data">
+                        <data-container [data]="data" [type]="project.label">
                         </data-container>
                         <div class="highlight-box"
                             [class.highlight]="selected.has(data.id)"
@@ -101,7 +101,7 @@
         </virtual-scroll>
 
         <div fxFlex="75">
-            <data-container *ngIf="selectedData" [data]="selectedData">
+            <data-container *ngIf="selectedData" [data]="selectedData" [type]="project.label">
             </data-container>
         </div>
     </div>

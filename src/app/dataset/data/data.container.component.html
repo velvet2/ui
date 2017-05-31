@@ -1,13 +1,30 @@
 <div style="width:100%;height:100%;position:relative">
     <data-image [data]="data"></data-image>
-    <div    label-class
-            [data]="data?.label"
-            style="position:absolute;top:0;width:100%;height:100%">
-    </div>
 
-    <div    label-class
-            [data]="data?.inference"
-            style="position:absolute;top:0;width:100%;height:100%"
-            type="inference">
+    <!-- [ngSwitch]="switch_expression" -->
+    <div [ngSwitch]="type">
+        <div    *ngSwitchCase="'bbox'"
+                label-bound
+                [path]="data?.path"
+                [data]="data?.label"
+                style="position:absolute;top:0;width:100%;height:100%"></div>
+
+        <div    *ngSwitchCase="'bbox'"
+                label-bound
+                [path]="data?.path"
+                [data]="data?.inference"
+                style="position:absolute;top:0;width:100%;height:100%"
+                type="inference"></div>
+
+        <div    *ngSwitchCase="'class'"
+                label-class
+                [data]="data?.label"
+                style="position:absolute;top:0;width:100%;height:100%"></div>
+
+        <div    *ngSwitchCase="'class'"
+                label-class
+                [data]="data?.inference"
+                style="position:absolute;top:0;width:100%;height:100%"
+                type="inference"></div>
     </div>
 </div>
