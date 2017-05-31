@@ -42,8 +42,9 @@
         <div class="overlay"
             [class.full]="full">
           <div style="position:relative; height:auto">
-            <md-card style="height:100%">
-              <label-class-setting [config]="project?.config" [project]="project?.id" (update)="updateConfig($event)"></label-class-setting>
+            <md-card style="height:100%" div [ngSwitch]="project?.label">
+              <label-bound-setting *ngSwitchCase="'bbox'" [config]="project?.config" [project]="project?.id" (update)="updateConfig($event)"></label-bound-setting>
+              <label-class-setting *ngSwitchCase="'class'" [config]="project?.config" [project]="project?.id" (update)="updateConfig($event)"></label-class-setting>
             </md-card>
           </div>
         </div>

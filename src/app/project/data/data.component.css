@@ -40,4 +40,5 @@
 
 .highlight-box {
     position:relative;
+    pointer-events: none
 }
