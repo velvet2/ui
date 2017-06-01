@@ -7,7 +7,9 @@ import { find } from 'lodash';
 export class BoundSettingService {
   projectID: string;
   class: Array<any> = [];
-
+  width: number = 10;
+  height: number = 10;
+  
   getClass(cls : string = undefined){
     if (cls == undefined){
       if ( this.class.length == 0){

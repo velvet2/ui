@@ -113,7 +113,6 @@ export class ClassSettingComponent implements OnInit {
     checkInputLabel(): boolean{
       if( this._config.get('label').indexOf(this.userInput) != -1 ) {
         let userInput = this.userInput;
-        console.log(this._data.selected)
         this._project.updateLabel(this.project, Array.from(this._data.selected), {label: this.userInput}, undefined)
           .subscribe(()=>{
             each(this._data.datas, (v: any)=>{

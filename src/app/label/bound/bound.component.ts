@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, ElementRef, HostListener } from '@angular/core';
 import { fabric } from 'fabric';
 import { min, max, each, get, map } from 'lodash';
 import { ProjectService } from '../../project/project.service';
@@ -148,8 +148,8 @@ export class BoundComponent implements OnInit {
 
     addNewRect(x: number, y: number){
       let width, height;
-      width = this.dataWidth * this.scale * 0.1;
-      height = width;
+      width = this.dataWidth * this.scale *  ( this._bound.width / 100 );
+      height = this.dataHeight * this.scale *  ( this._bound.height / 100 )
 
       if(this._bound.getClass() == undefined){
         this._dialog.open(NoClassDialogComponent);
@@ -164,8 +164,8 @@ export class BoundComponent implements OnInit {
 
     addRect(x: number, y: number, width = -1, height = -1, theta = 0, cls: string = undefined){
       if (width <= 0 || height <= 0) {
-        width = this.dataWidth * this.scale * 0.1;
-        height = width
+        width = this.dataWidth * this.scale *  ( this._bound.width / 100 );
+        height = this.dataHeight * this.scale *  ( this._bound.height / 100 )
       }
 
      this.stage.add(new fabric.Rect({
@@ -185,21 +185,26 @@ export class BoundComponent implements OnInit {
 
     }
 
+    selectedObject(): Array<any>{
+        let object: Array<any> = []
+        if (this.stage.getActiveObject()){
+          object = [this.stage.getActiveObject()];
+        }
+
+        if ( this.stage.getActiveGroup() ){
+          object = object.concat(this.stage.getActiveGroup().getObjects())
+        }
+
+        return object
+    }
+
     delete(){
-      let object: Array<any> = []
-      if (this.stage.getActiveObject()){
-        object = [this.stage.getActiveObject()];
-      }
-
-      if ( this.stage.getActiveGroup() ){
-        object = object.concat(this.stage.getActiveGroup().getObjects())
-      }
-
-      each(object, (v)=>{
-        v.remove();
-      });
-
-      this._collectObject();
+        let object = this.selectedObject()
+        each(object, (v)=>{
+          v.remove();
+        });
+        this.stage.renderAll();
+        this._collectObject();
     }
 
     assignLabel($event){
@@ -224,14 +229,14 @@ export class BoundComponent implements OnInit {
     checkInputLabel(): boolean{
       if( map(this._bound.class, (v)=> v.class).indexOf(this.userInput) != -1 ) {
         let userInput = this.userInput;
-        // this._project.updateLabel(this.project, Array.from(this._data.selected), {label: this.userInput}, undefined)
-        //   .subscribe(()=>{
-        //     each(this._data.datas, (v: any)=>{
-        //       if (this._data.selected.has(v.id)){
-        //         v.label = {label: userInput }
-        //       }
-        //     })
-        //   });
+        let object = this.selectedObject();
+        each(object, (v)=>{
+            v.class = userInput;
+            v.setStroke(this._bound.getClass(userInput).color);
+            v.cornerColor = this._bound.getClass(userInput).color;
+        });
+        this.stage.renderAll();
+        this._collectObject();
         return true;
       };
       return false
@@ -241,5 +246,12 @@ export class BoundComponent implements OnInit {
       return  (charCode >= 48 && charCode <= 57 ) ||
               (charCode >= 65 && charCode <= 90 ) ||
               (charCode >= 97 && charCode <= 122 )
+    }
+
+    @HostListener('document:click', ['$event'])
+    declick($event){
+        if ( $event.path.indexOf(this.el.nativeElement) == -1 ){
+            this.userInput = ''
+        }
     }
 }

@@ -51,6 +51,18 @@
     </div>
 
   </div>
+  <div fxLayout="column" fxFlex="33">
+    <md-input-container>
+      <input mdInput placeholder="Default Width"
+            [(ngModel)]="defaultWidth"
+            (ngModelChange)="updateSize()">
+    </md-input-container>
+    <md-input-container>
+      <input mdInput placeholder="Default Height"
+            [(ngModel)]="defaultHeight"
+            (ngModelChange)="updateSize()">
+    </md-input-container>
+  </div>
 
   <!-- <div fxFlex="33" class=".comp">
     <span>Class</span>

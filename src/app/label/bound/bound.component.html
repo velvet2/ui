@@ -1,6 +1,12 @@
-<div style="position:absolute;width:100%;height:100%;"
+<div style="position:absolute;width:100%;height:1px;"
       [style.padding-top.px]="paddingTop"
       [style.padding-left.px]="paddingLeft">
+      <md-chip-list style="margin:5px;position:absolute" *ngIf="!type && userInput">
+          <md-chip>
+              <span>{{ userInput }}</span>
+              <!-- <md-icon style="font-size:1rem;text-align:center" (click)="userInput=''">close</md-icon> -->
+          </md-chip>
+      </md-chip-list>
     <div style="user-select:none"
             class="ori-scale"
             tabindex=1
@@ -11,4 +17,5 @@
             [style.transform]="'scale('+ scale + ')'">
       <canvas #canvas></canvas>
     </div>
+
 </div>

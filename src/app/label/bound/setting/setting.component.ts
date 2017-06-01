@@ -25,6 +25,14 @@ export class BoundSettingComponent implements OnInit {
                 } else {
                     return List()
                 }
+            });
+
+            this._config = this._config.update('width', (v: any)=>{
+                return v ? v : 10;
+            });
+
+            this._config = this._config.update('height', (v: any)=>{
+                return v ? v : 10;
             })
         }
     }
@@ -47,11 +55,16 @@ export class BoundSettingComponent implements OnInit {
 
     userInput: string = '';
     color: string = "#000";
+    defaultHeight: number = 10;
+    defaultWidth: number = 10;
 
     constructor(private _data: DataBus, private _project: ProjectService, private _state: AppState, private _bound: BoundSettingService) { }
 
     ngOnInit() {
       this._bound.class = this.config.get('label').toArray()
+      this._bound.width = this.defaultWidth = this.config.get('width')
+      this._bound.height = this.defaultHeight = this.config.get('height')
+
     }
 
     addClass(cls: string, color: string){
@@ -75,8 +88,17 @@ export class BoundSettingComponent implements OnInit {
       })
     }
 
+    updateSize(){
+        this._config  = this._config.update('height', ()=> this.defaultHeight);
+        this._config  = this._config.update('width', ()=> this.defaultWidth);
+        this.emit();
+    }
+
     emit(){
       this.update.emit(this._config.toJSON())
-      this._bound.class = this.config.get('label').toArray()
+      console.log(this._config.toJSON())
+      this._bound.class = this.config.get('label').toArray();
+      this._bound.width = this.config.get('width');
+      this._bound.height = this.config.get('height');
     }
 }
