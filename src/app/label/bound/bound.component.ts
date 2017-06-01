@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, ViewChild, ElementRef } from '@angular/core';
 import { fabric } from 'fabric';
-import { min, max, each, get } from 'lodash';
+import { min, max, each, get, map } from 'lodash';
 import { ProjectService } from '../../project/project.service';
 import { BoundSettingService } from './setting/setting.service';
 import { DataBus } from '../../project/data/';
@@ -57,6 +57,7 @@ export class BoundComponent implements OnInit {
     ready: boolean = false;
     blockEvent: boolean = false;
     skipEvent: boolean = false;
+    userInput: string = '';
 
     ngOnInit() {
         // console.log(fabric)
@@ -73,7 +74,7 @@ export class BoundComponent implements OnInit {
           this.blockEvent = true;
           this.stage.clear()
           each(get(this.__data, 'box'), (v: any)=>{
-              this.addRect(v.x, v.y, v.w, v.h, v.theta || 0)
+              this.addRect(v.x, v.y, v.w, v.h, v.theta || 0, v.class)
           });
           this.blockEvent = false;
         }
@@ -109,12 +110,6 @@ export class BoundComponent implements OnInit {
               this._collectObject();
           });
 
-          this.stage.on("object:selected", (e: any)=>{
-              console.log(e)
-            //   this._collectObject();
-          });
-
-
           this.populateStage()
         });
     }
@@ -126,7 +121,7 @@ export class BoundComponent implements OnInit {
 
 
         let obj = this.stage.getObjects().map((o: any)=>{
-            return {x: o.left, y: o.top, w: o.width, h:o.height, theta: o.angle || 0};
+            return {class: o.class, x: o.left, y: o.top, w: o.width, h:o.height, theta: o.angle || 0};
         });
 
         if (obj.length == 0){
@@ -167,26 +162,27 @@ export class BoundComponent implements OnInit {
       this.addRect(x, y)
     }
 
-    addRect(x: number, y: number, width = -1, height = -1, theta = 0){
+    addRect(x: number, y: number, width = -1, height = -1, theta = 0, cls: string = undefined){
       if (width <= 0 || height <= 0) {
         width = this.dataWidth * this.scale * 0.1;
         height = width
       }
 
+     this.stage.add(new fabric.Rect({
+        left: x,
+        top: y,
+        width: width,
+        height: height,
+        stroke: this._bound.getClass(cls).color,
+        class: this._bound.getClass(cls).class,
+        strokeWidth: 2,
+        angle: 0,
+        fill: 'rgba(0,0,0,0)',
+        cornerColor: this._bound.getClass(cls).color,
+        cornerSize: 18,
+        transparentCorners: false
+    }))
 
-      this.stage.add(new fabric.Rect({
-         left: x,
-         top: y,
-         width: width,
-         height: height,
-         stroke: this._bound.getClass().color,
-         strokeWidth: 2,
-         angle: 0,
-         fill: 'rgba(0,0,0,0)',
-         cornerColor: this._bound.getClass().color,
-         cornerSize: 18,
-         transparentCorners: false
-     }));
     }
 
     delete(){
@@ -206,7 +202,44 @@ export class BoundComponent implements OnInit {
       this._collectObject();
     }
 
-    assignLabel(){
-      console.log("assign label")
+    assignLabel($event){
+        if ( $event.key == 'Backpace' || $event.key == "Delete"){
+            return
+        }
+
+        if(this.isKey($event.which) && !$event.ctrlKey && !$event.metaKey){
+          this.userInput += $event.key;
+          if ( this.checkInputLabel() ){
+            this.userInput = '';
+          }
+        } else if ( $event.code == "Escape"){
+          this.userInput = '';
+        } else if ($event.code == "Enter"){
+          console.log("user enter label");
+          this.checkInputLabel();
+          this.userInput = '';
+        }
+    }
+
+    checkInputLabel(): boolean{
+      if( map(this._bound.class, (v)=> v.class).indexOf(this.userInput) != -1 ) {
+        let userInput = this.userInput;
+        // this._project.updateLabel(this.project, Array.from(this._data.selected), {label: this.userInput}, undefined)
+        //   .subscribe(()=>{
+        //     each(this._data.datas, (v: any)=>{
+        //       if (this._data.selected.has(v.id)){
+        //         v.label = {label: userInput }
+        //       }
+        //     })
+        //   });
+        return true;
+      };
+      return false
+    }
+
+    isKey(charCode: number){
+      return  (charCode >= 48 && charCode <= 57 ) ||
+              (charCode >= 65 && charCode <= 90 ) ||
+              (charCode >= 97 && charCode <= 122 )
     }
 }
