@@ -21,8 +21,8 @@ import * as _ from 'lodash';
 export class DataComponent {
     @ViewChild('vs') vs : VirtualScrollComponent;
 
-    private datas: Array<any> = [];
-    private _datas: Array<any> = [];
+    datas: Array<any> = [];
+    _datas: Array<any> = [];
 
     private id: any;
     private sub: any;

@@ -40,6 +40,7 @@ import { LabelBus } from '../label';
       ProjectDialog,
       DataComponent,
       // ClassSettingComponent
+    //   UploadDatasetDialog
   ],
   providers: [
       ProjectService,
@@ -49,8 +50,8 @@ import { LabelBus } from '../label';
       // LabelBus
   ],
   entryComponents: [
-      ProjectDialog
-    //   ,UploadDatasetDialog
+      ProjectDialog,
+    //   UploadDatasetDialog
   ],
 })
 export class ProjectModule { }

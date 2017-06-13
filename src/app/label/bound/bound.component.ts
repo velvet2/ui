@@ -57,7 +57,7 @@ export class BoundComponent implements OnInit {
     ready: boolean = false;
     blockEvent: boolean = false;
     skipEvent: boolean = false;
-    userInput: string = '';
+    userInput: any = '';
 
     ngOnInit() {
         // console.log(fabric)
