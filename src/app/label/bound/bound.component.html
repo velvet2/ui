@@ -7,14 +7,13 @@
               <!-- <md-icon style="font-size:1rem;text-align:center" (click)="userInput=''">close</md-icon> -->
           </md-chip>
       </md-chip-list>
-    <div style="user-select:none"
-            class="ori-scale"
+    <div    class="ori-scale noselect"
             tabindex=1
             (dblclick)="addNewRect($event.offsetX, $event.offsetY)"
             (keydown.delete)="delete()"
             (keydown.backspace)="delete()"
             (keydown)="assignLabel($event)"
-            [style.transform]="'scale('+ scale + ')'">
+            [style.transform]="'scale('+ scale + ',' + scale + ')'">
       <canvas #canvas></canvas>
     </div>
 

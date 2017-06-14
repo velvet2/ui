@@ -82,10 +82,11 @@ export class BoundComponent implements OnInit {
 
     init(){
         let dimension = this.el.nativeElement.getBoundingClientRect()
-        if ( dimension.width == 0 || this.ready ){
-          return
+        if ( dimension.width == 0 ) {
+            return;
         }
-        this.ready = true;
+
+        console.log("populating")
         let scaleW = dimension.height / this.dataHeight;
         let scaleH = dimension.width / this.dataWidth;
         this.scale = min([scaleW, scaleH]);
@@ -93,25 +94,31 @@ export class BoundComponent implements OnInit {
         this.paddingTop = ( dimension.height - this.dataHeight * this.scale ) / 2 ;
         this.paddingLeft = ( dimension.width - this.dataWidth * this.scale ) / 2 ;
 
-        setTimeout(()=>{
+        if ( this.ready ) {
+            this.stage.setDimensions({ width: this.dataWidth, height: this.dataHeight});
+            this.populateStage();
+        } else {
+            this.ready = true;
+            setTimeout(()=>{
 
-          this.stage = new fabric.Canvas(this.canvas.nativeElement);
-          // console.log(this.stage)
-          this.stage.on("object:added", (e: any)=>{
-              this._collectObject();
-          });
-          this.stage.on("object:scaling", (e: any)=> {
-              e.target.setWidth(e.target.width * e.target.scaleX);
-              e.target.setScaleX(1);
-              e.target.setHeight(e.target.height * e.target.scaleY);
-              e.target.setScaleY(1);
-          });
-          this.stage.on("object:modified", (e: any)=>{
-              this._collectObject();
-          });
+                this.stage = new fabric.Canvas(this.canvas.nativeElement);
+                // console.log(this.stage)
+                this.stage.on("object:added", (e: any)=>{
+                    this._collectObject();
+                });
+                this.stage.on("object:scaling", (e: any)=> {
+                    e.target.setWidth(e.target.width * e.target.scaleX);
+                    e.target.setScaleX(1);
+                    e.target.setHeight(e.target.height * e.target.scaleY);
+                    e.target.setScaleY(1);
+                });
+                this.stage.on("object:modified", (e: any)=>{
+                    this._collectObject();
+                });
 
-          this.populateStage()
-        });
+                this.populateStage()
+            });
+        }
     }
 
     private _collectObject(){
@@ -148,8 +155,8 @@ export class BoundComponent implements OnInit {
 
     addNewRect(x: number, y: number){
       let width, height;
-      width = this.dataWidth * this.scale *  ( this._bound.width / 100 );
-      height = this.dataHeight * this.scale *  ( this._bound.height / 100 )
+      width = this.dataWidth *  ( this._bound.width / 100 );
+      height = this.dataHeight *  ( this._bound.height / 100 )
 
       if(this._bound.getClass() == undefined){
         this._dialog.open(NoClassDialogComponent);
@@ -159,13 +166,13 @@ export class BoundComponent implements OnInit {
 
       x = max([0, x - width / 2])
       y = max([0, y - height / 2])
-      this.addRect(x, y)
+      this.addRect(x, y, width, height)
     }
 
     addRect(x: number, y: number, width = -1, height = -1, theta = 0, cls: string = undefined){
       if (width <= 0 || height <= 0) {
-        width = this.dataWidth * this.scale *  ( this._bound.width / 100 );
-        height = this.dataHeight * this.scale *  ( this._bound.height / 100 )
+        width = this.dataWidth *  ( this._bound.width / 100 );
+        height = this.dataHeight *  ( this._bound.height / 100 )
       }
 
      this.stage.add(new fabric.Rect({
@@ -175,11 +182,12 @@ export class BoundComponent implements OnInit {
         height: height,
         stroke: this._bound.getClass(cls).color,
         class: this._bound.getClass(cls).class,
-        strokeWidth: 2,
+        strokeWidth: max([1, 2 / this.scale]),
         angle: 0,
         fill: 'rgba(0,0,0,0)',
         cornerColor: this._bound.getClass(cls).color,
-        cornerSize: 18,
+        cornerSize: 18 / this.scale,
+        rotatingPointOffset: 40 / this.scale,
         transparentCorners: false
     }))
 
