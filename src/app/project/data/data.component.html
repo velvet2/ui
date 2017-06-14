@@ -60,7 +60,7 @@
     <virtual-scroll #vs
                     *ngIf="list"
                     [items]="datas"
-                    style="overflow-y:overlay"
+                    style="overflow-y:overlay; max-height: 100vh"
                     (update)="_datas = $event;"
                     [childHeight]="dataSize"
                     [childWidth]="dataSize">
@@ -82,7 +82,8 @@
             </div>
     </virtual-scroll>
 
-    <div *ngIf="!list" fxLayout="row">
+    <!-- <div style="max-height:100vh"> -->
+    <div *ngIf="!list" fxLayout="row" class="fixed-height">
         <virtual-scroll fxFlex="25"
                         [items]="datas"
                         (update)="_datas = $event;">

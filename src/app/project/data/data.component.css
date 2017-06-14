@@ -42,3 +42,8 @@
     position:relative;
     pointer-events: none
 }
+
+.fixed-height {
+    max-height: calc(100vh - 128px);
+    background: #fff0;
+}
