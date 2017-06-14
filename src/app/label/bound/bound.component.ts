@@ -86,7 +86,6 @@ export class BoundComponent implements OnInit {
             return;
         }
 
-        console.log("populating")
         let scaleW = dimension.height / this.dataHeight;
         let scaleH = dimension.width / this.dataWidth;
         this.scale = min([scaleW, scaleH]);
@@ -183,7 +182,7 @@ export class BoundComponent implements OnInit {
         stroke: this._bound.getClass(cls).color,
         class: this._bound.getClass(cls).class,
         strokeWidth: max([1, 2 / this.scale]),
-        angle: 0,
+        angle: theta,
         fill: 'rgba(0,0,0,0)',
         cornerColor: this._bound.getClass(cls).color,
         cornerSize: 18 / this.scale,
