@@ -16,7 +16,7 @@ RUN cp -a /app/dist/* /usr/share/nginx/html && \
     rm -rf ./app
 
 RUN apt-get remove --purge -y curl gnupg python nodejs make && \
-    apt-get autoremove && \
+    apt-get autoremove -y && \
     rm -rf /var/lib/apt/lists/*
 
 COPY nginx.conf /etc/nginx/nginx.conf
