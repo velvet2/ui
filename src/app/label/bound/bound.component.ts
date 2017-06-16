@@ -111,9 +111,22 @@ export class BoundComponent implements OnInit {
                     e.target.setHeight(e.target.height * e.target.scaleY);
                     e.target.setScaleY(1);
                 });
+
                 this.stage.on("object:modified", (e: any)=>{
                     this._collectObject();
                 });
+
+                this.stage.on("object:rotating", (e: any)=>{
+                    var targetObj = e.target;
+                    var angle = targetObj.angle;
+
+                    if ( angle > 270 ){
+                        targetObj.angle = 0;
+                    } else if ( angle > 90){
+                        targetObj.angle = 90;
+                    }
+                });
+
 
                 this.populateStage()
             });
