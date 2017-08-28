@@ -1,5 +1,5 @@
 <div style="width:100%;height:100%;position:relative">
-    <data-image [data]="data?.data"></data-image>
+    <data-image [data]="data?.data || data"></data-image>
 
     <div [ngSwitch]="type">
         <div    *ngSwitchCase="'locate'"
