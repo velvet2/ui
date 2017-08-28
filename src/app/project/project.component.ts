@@ -30,7 +30,7 @@ export class ProjectComponent {
 
     ngOnInit(){
         this.stateListener = this._state.subscribe('project.refresh', ()=>{
-            this._project.getProject().subscribe((project: any)=>{
+            this._project.list().subscribe((project: any)=>{
                 this.projects = project;
             }, (error)=>{})
         });

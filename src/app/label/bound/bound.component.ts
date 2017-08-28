@@ -27,7 +27,7 @@ export class BoundComponent implements OnInit {
     __data: any
 
     @Input()
-    set path(p: string){
+    set path(p: any){
         let that = this;
         this._path = p;
         // console.log(p)
@@ -37,7 +37,7 @@ export class BoundComponent implements OnInit {
             that.setSize(img.height, img.width)
             that.init()
         };
-        image.src = p;
+        image.src = p.path + '/' + p.name;
     }
 
     private _path: string;
@@ -59,21 +59,13 @@ export class BoundComponent implements OnInit {
     skipEvent: boolean = false;
     userInput: any = '';
 
-    ngOnInit() {
-        // console.log(fabric)
-      // console.log(this.data)
-      // console.log(this.data)
-    }
-
-    // ngOnChanges(c: any){
-    //     console.log(c.data.currentValue, c.data.previousValue)
-    // }
+    ngOnInit() {}
 
     populateStage(){
         if(this.stage){
           this.blockEvent = true;
           this.stage.clear()
-          each(get(this.__data, 'box'), (v: any)=>{
+          each(get(this.__data, 'config.box'), (v: any)=>{
               this.addRect(v.x, v.y, v.w, v.h, v.theta || 0, v.class)
           });
           this.blockEvent = false;
@@ -134,10 +126,9 @@ export class BoundComponent implements OnInit {
     }
 
     private _collectObject(){
-      if(this.blockEvent){
-        return;
-      }
-
+        if(this.blockEvent){
+            return;
+        }
 
         let obj = this.stage.getObjects().map((o: any)=>{
             return {class: o.class, x: o.left, y: o.top, w: o.width, h:o.height, theta: o.angle || 0};
@@ -148,13 +139,11 @@ export class BoundComponent implements OnInit {
         }
 
         this.skipEvent = true;
-        this._project.updateLabel(this._bound.projectID, [this.source.id], {box: obj}, undefined)
+        this._project.labels(this._bound.projectID, [this.source.data.id], {box: obj})
           .subscribe(()=>{
-            each(this._data.datas, (v: any)=>{
-              if (this._data.selected.has(v.id)){
-                v.label = {box: obj }
-              }
-            })
+                this._data.findLabel(this._data.selected, (v)=>{
+                    this._data.updateLabelConfig(v, {box: obj });
+                });
           });
     }
 

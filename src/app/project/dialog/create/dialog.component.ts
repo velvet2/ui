@@ -12,7 +12,7 @@ export class ProjectDialog {
     dataName: string = "";
     datas: Array<any> = [];
     labels: Array<any> = [
-        {name: "Classification", id: 'classification'},
+        {name: "Classification", id: 'class'},
         {name: "Bounding Box", id: 'bbox'}
     ]
 
@@ -23,9 +23,9 @@ export class ProjectDialog {
                 public _data: DatasetService) { }
 
     ngOnInit(){
-        this._data.getDataset().subscribe((v: any)=>{
+        this._data.listDataset().subscribe((v: any)=>{
             this.datas = v['data'];
-        })
+        });
     }
 
     create(){

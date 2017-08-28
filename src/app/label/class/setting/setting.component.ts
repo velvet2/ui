@@ -26,6 +26,7 @@ export class ClassSettingComponent implements OnInit {
                     return List()
                 }
             })
+            console.log(this._config)
         }
     }
 
@@ -100,7 +101,7 @@ export class ClassSettingComponent implements OnInit {
     }
 
     deleteLabel(){
-      this._project.updateLabel(this.project, Array.from(this._data.selected), {}, undefined)
+      this._project.labels(this.project, Array.from(this._data.selected), {})
         .subscribe(()=>{
           each(this._data.datas, (v: any)=>{
             if (this._data.selected.has(v.id)){
@@ -111,20 +112,19 @@ export class ClassSettingComponent implements OnInit {
     }
 
     checkInputLabel(): boolean{
-      if( this._config.get('label').indexOf(this.userInput) != -1 ) {
-        let userInput = this.userInput;
-        this._project.updateLabel(this.project, Array.from(this._data.selected), {label: this.userInput}, undefined)
-          .subscribe(()=>{
-            each(this._data.datas, (v: any)=>{
-              if (this._data.selected.has(v.id)){
-                v.label = {label: userInput }
-              }
-            })
-          });
-        return true;
-      };
-      return false
+        if( this._config.get('label').indexOf(this.userInput) != -1 ) {
+            let userInput = this.userInput;
+            this._project.labels(this.project, Array.from(this._data.selected), {label: this.userInput})
+                .subscribe(()=>{
+                    this._data.findLabel(this._data.selected, (v)=>{
+                        this._data.updateLabelConfig(v, {label: userInput});
+                    });
+                });
+            return true;
+        }
+        return false
     }
+
     isKey(charCode: number){
       return  (charCode >= 48 && charCode <= 57 ) ||
               (charCode >= 65 && charCode <= 90 ) ||

@@ -12,12 +12,11 @@
             </md-input-container>
         </div>
 
-        <md-select placeholder="Dataset" [(ngModel)]="dataset">
+        <md-select placeholder="Dataset" [(ngModel)]="dataset"  style="padding-bottom:1.2rem">
           <md-option *ngFor="let data of datas" [value]="data.id">
             {{ data.name }}
           </md-option>
         </md-select>
-
 
         <md-select placeholder="Label Type" [(ngModel)]="lbl">
           <md-option *ngFor="let label of labels" [value]="label.id">

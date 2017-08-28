@@ -4,6 +4,7 @@ import { Http, RequestOptionsArgs, Headers } from '@angular/http';
 import { AppState } from '../../app.service';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { DataService } from './data.service';
+import { DatasetService } from '../dataset.service';
 
 // import { LabelBus } from '../label/label.service';
 // import { Label } from '../label/label.class';
@@ -34,14 +35,16 @@ export class DataComponent {
     constructor(private _state: AppState,
                 private route: ActivatedRoute,
                 private router: Router,
-                private _data: DataService){}
+                private _data: DataService,
+                private _dataset: DatasetService){}
                 // private dialog: MdDialog,
                 // private _label: LabelBus) { }
 
     ngOnInit(){
         this.sub = this.route.params.subscribe(params => {
             this.id = +params['id'];
-            this._data.getData(this.id).subscribe((v: any)=>{
+            this._dataset.getDataset(this.id).subscribe((v: any)=>{
+                // console.log(v)
                 this.datas = v['data'];
                 // this.selected = this.datas[this.selected_index];
                 //     this.reloadLabel();

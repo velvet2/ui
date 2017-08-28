@@ -44,7 +44,7 @@
           <div style="position:relative; height:auto">
             <md-card style="height:100%" div [ngSwitch]="project?.label">
               <label-bound-setting *ngSwitchCase="'bbox'" [config]="project?.config" [project]="project?.id" (update)="updateConfig($event)"></label-bound-setting>
-              <label-class-setting *ngSwitchCase="'classification'" [config]="project?.config" [project]="project?.id" (update)="updateConfig($event)"></label-class-setting>
+              <label-class-setting *ngSwitchCase="'class'" [config]="project?.config" [project]="project?.id" (update)="updateConfig($event)"></label-class-setting>
             </md-card>
           </div>
         </div>
@@ -59,7 +59,7 @@
 
     <virtual-scroll #vs
                     *ngIf="list"
-                    [items]="datas"
+                    [items]="labels"
                     style="overflow-y:overlay; max-height: 100vh"
                     (update)="_datas = $event;"
                     [childHeight]="dataSize"
@@ -70,40 +70,37 @@
                     [style.width.px]="dataSize"
                     [style.height.px]="dataSize"
                     style="margin:3px"
-                    (click)="select(data.id, $event.ctrlKey || $event.metaKey)">
-                    <data-container [data]="data" [type]="project.label">
+                    (click)="select(data.data.id, $event.ctrlKey || $event.metaKey)">
+                    <data-container
+                        [data]="data"
+                        [type]="project?.label"
+                        [selected]="selected.has(data.data.id)">
                     </data-container>
-                    <div class="highlight-box"
-                        [class.highlight]="selected.has(data.id)"
-                        [style.width.px]="dataSize"
-                        [style.height.px]="dataSize"
-                        [style.top.px]="-dataSize">
-                    </div>
             </div>
     </virtual-scroll>
 
-    <!-- <div style="max-height:100vh"> -->
     <div *ngIf="!list" fxLayout="row" class="fixed-height">
         <virtual-scroll fxFlex="25"
-                        [items]="datas"
+                        [items]="labels"
                         (update)="_datas = $event;">
 
                 <div    *ngFor="let data of _datas; let i = index"
                         [style.height.vw]="25"
                         style="margin:3px"
-                        (click)="select(data.id, false)">
-                        <data-container [data]="data" [type]="project.label">
+                        (click)="select(data.data.id, false)">
+                        <data-container
+                            [data]="data"
+                            [type]="project?.label"
+                            [selected]="selected.has(data.data.id)">
                         </data-container>
-                        <div class="highlight-box"
-                            [class.highlight]="selected.has(data.id)"
-                            [style.height.vw]="25"
-                            [style.top.vw]="-25">
-                        </div>
                 </div>
         </virtual-scroll>
 
         <div fxFlex="75">
-            <data-container *ngIf="selectedData" [data]="selectedData" [type]="project.label">
+            <data-container
+                *ngIf="selectedData"
+                [data]="selectedData"
+                [type]="project.label">
             </data-container>
         </div>
     </div>

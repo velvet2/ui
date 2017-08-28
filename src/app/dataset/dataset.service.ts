@@ -6,8 +6,18 @@ import { Observable } from 'rxjs';
 export class DatasetService {
     constructor(private _http: Http) { }
 
-    getDataset(): Observable<any> {
-        return this._http.get('api/dataset')
+    getDataset(dataset_id: string): Observable<any> {
+        return this._http.get('/api/datasets/' + dataset_id)
+            .map((data: Response) => {
+                return data.json()
+            })
+            .catch((data: Response) => {
+                return data.json()
+            });
+    }
+
+    listDataset(): Observable<any> {
+        return this._http.get('api/datasets/')
             .map((data: Response) => {
                 return data.json()
             })
@@ -17,20 +27,19 @@ export class DatasetService {
     }
 
     create(name: string): Observable<any> {
-        return this._http.post("api/dataset", { "name": name })
+        return this._http.post("api/datasets/", { "name": name })
            .map((v: any)=>{ return v })
            .catch((v: any)=>{ return v });
     }
 
     upload(id: string, form: FormData){
-        form.append('id', id)
-        return this._http.post('api/dataset/upload', form)
+        return this._http.post(`api/datas/${id}`, form)
             .map((resp: any) => {return resp})
             .catch((resp: any) => {return resp});
     }
 
     delete(id: string){
-        return this._http.delete('/api/dataset/' + id)
+        return this._http.delete('/api/datasets/' + id)
             .map((resp: any) => {return resp})
             .catch((resp: any) => {return resp});
     }

@@ -2,7 +2,7 @@
     <md-sidenav #sidenav class="sidenav">
         <md-nav-list>
             <md-list-item *ngFor="let menu of menus"
-                [routerLink]="menu.link" routerLinkActive="active">
+                [routerLink]="menu.link" routerLinkActive="active" (click)="sidenav.close()">
                 <md-icon>{{ menu.icon }}</md-icon>
                 {{ menu.menu }}
             </md-list-item>
@@ -12,7 +12,7 @@
     <div class="example-sidenav-content" fxLayout="column" fxFill>
         <md-toolbar color="primary" fxLayout="row">
             <button md-icon-button (click)="sidenav.open()"><md-icon>menu</md-icon></button>
-            <span> My App </span>
+            <span>Velvet</span>
             <span class="spacer"></span>
             <button md-icon-button [mdMenuTriggerFor]="menu"><md-icon>more_vert</md-icon></button>
 

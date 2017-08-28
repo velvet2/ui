@@ -1,33 +1,33 @@
 import { Injectable } from '@angular/core';
 import { Subject }    from 'rxjs/Subject';
+import * as _ from 'lodash';
 
 @Injectable()
 export class DataBus {
-  selected: Set<number> = new Set<number>();;
-  datas: Array<any> = [];
+    selected: Set<number> = new Set<number>();;
+    datas: Array<any> = [];
 
-  // Observable string sources
-  private data = new Subject<string>();
-  private missionConfirmedSource = new Subject<string>();
+    // Observable string sources
+    private data = new Subject<string>();
 
-  // Observable string streams
-  data$ = this.data.asObservable();
+    // Observable string streams
+    data$ = this.data.asObservable();
 
-  // missionAnnounced$ = this.missionAnnouncedSource.asObservable();
-  missionConfirmed$ = this.missionConfirmedSource.asObservable();
-  // Service message commands
-  announceMission(mission: string) {
-    // this.missionAnnouncedSource.next(mission);
-  }
-  confirmMission(astronaut: string) {
-    this.missionConfirmedSource.next(astronaut);
-  }
+    updateLabelConfig(data: any, config: any){
+        data.label.config = config;
+    }
 
-  setData(datas: Array<any>){
-    this.datas = datas;
-  }
+    findLabel(id: Set<number>, callback: Function){
+        _(this.datas).filter((data: any)=>{
+            return id.has(data.data.id);
+        }).each(callback);
+    }
 
-  setSelected(sel: Set<number>){
-    this.selected = sel;
-  }
+    setData(datas: Array<any>){
+        this.datas = datas;
+    }
+
+    setSelected(sel: Set<number>){
+        this.selected = sel;
+    }
 }

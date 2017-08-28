@@ -6,3 +6,11 @@
 .data {
     float:left;
 }
+
+.highlight-box {
+    position:relative;
+    pointer-events: none;
+    height: 100%;
+    margin-top: -100%;
+    border: blue solid 2px;
+}

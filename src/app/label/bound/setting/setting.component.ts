@@ -34,6 +34,8 @@ export class BoundSettingComponent implements OnInit {
             this._config = this._config.update('height', (v: any)=>{
                 return v ? v : 10;
             })
+        } else {
+            this.config = Map({});
         }
     }
 
@@ -61,10 +63,9 @@ export class BoundSettingComponent implements OnInit {
     constructor(private _data: DataBus, private _project: ProjectService, private _state: AppState, private _bound: BoundSettingService) { }
 
     ngOnInit() {
-      this._bound.class = this.config.get('label').toArray()
-      this._bound.width = this.defaultWidth = this.config.get('width')
-      this._bound.height = this.defaultHeight = this.config.get('height')
-
+        this._bound.class = this.config.get('label').toArray()
+        this._bound.width = this.defaultWidth = this.config.get('width')
+        this._bound.height = this.defaultHeight = this.config.get('height')
     }
 
     addClass(cls: string, color: string){
@@ -96,7 +97,6 @@ export class BoundSettingComponent implements OnInit {
 
     emit(){
       this.update.emit(this._config.toJSON())
-      console.log(this._config.toJSON())
       this._bound.class = this.config.get('label').toArray();
       this._bound.width = this.config.get('width');
       this._bound.height = this.config.get('height');

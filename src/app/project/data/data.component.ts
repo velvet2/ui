@@ -30,7 +30,7 @@ export class DataComponent {
 
     start: number = 0;
     zoomLevel : number = 3;
-    dataSize: number = 0;
+    dataSize: number;
     list: boolean = true;
     selected: Set<number> = new Set<number>();
     selectedData: any;
@@ -40,6 +40,7 @@ export class DataComponent {
     search$: BehaviorSubject<string> = new BehaviorSubject<string>('');
 
     project: any;
+    labels: any;
 
     constructor(private _state: AppState,
                 private route: ActivatedRoute,
@@ -48,17 +49,18 @@ export class DataComponent {
                 private _project: ProjectService,
                 private _label: LabelBus,
                 private _datab: DataBus){}
-                // private dialog: MdDialog,
-                // private _label: LabelBus) { }
 
     ngOnInit(){
         this.sub = this.route.params.subscribe(params => {
             this.id = +params['id'];
 
-            this._project.getOneProject(this.id).subscribe((v: any)=>{
+            this._project.get(this.id).subscribe((v: any)=>{
                 this.project = v;
-                this.datas =  this.project.datas
-                this._datab.datas = this.datas;
+            });
+
+            this._project.filter(this.id).subscribe((v: any)=>{
+                this.labels = v;
+                this._datab.setData(this.labels);
             });
         });
 
@@ -78,15 +80,18 @@ export class DataComponent {
     }
 
     doSearch(query: any){
-      this._project.getOneProject(this.id, query).subscribe((v: any)=>{
-          this.project = v;
-          this.datas =  this.project.datas
-          this._datab.datas = this.datas;
-      });
+        console.warn('search disabled');
+    //   this._project.getOneProject(this.id, query).subscribe((v: any)=>{
+    //       this.project = v;
+    //       this.datas =  this.project.datas
+    //       this._datab.datas = this.datas;
+    //   });
     }
 
     ngAfterViewInit(){
-        this.update_size();
+        setTimeout(()=>{
+            this.update_size();
+        });
     }
 
     zoom_in(){
@@ -109,8 +114,8 @@ export class DataComponent {
         } else {
             this.selected = new Set<number>();
             this.selected.add(index);
-            this.selectedData = _.find(this.datas, (v)=> v.id == index);
         }
+        this.selectedData = _.find(this.labels, (v)=> v.data.id == index);
         this._datab.setSelected(this.selected);
     }
 
@@ -127,9 +132,9 @@ export class DataComponent {
     }
 
     updateConfig(e: any){
-      this._project.edit(this.id, undefined, e).subscribe((v: any)=>{
-        console.log("config updated")
-      })
+        this._project.edit(this.id, undefined, e).subscribe((v: any)=>{
+            console.log("config updated")
+        })
     }
 
     @HostListener('document:keydown', ['$event'])

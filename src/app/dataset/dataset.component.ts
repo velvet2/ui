@@ -28,12 +28,12 @@ export class DatasetComponent {
                 private _data: DatasetService) { }
 
     ngOnInit(){
-        this.stateListener = this._state.subscribe('data.refresh', ()=>{
-            this._data.getDataset().subscribe((data: any)=>{
+        this.stateListener = this._state.subscribe('dataset.refresh', ()=>{
+            this._data.listDataset().subscribe((data: any)=>{
                 this.datas = data['data'];
             }, (error)=>{})
         });
-        this._state.notifyDataChanged("data.refresh", true)
+        this._state.notifyDataChanged("dataset.refresh", true)
     }
 
     openCreateDialog() {
@@ -44,45 +44,31 @@ export class DatasetComponent {
         dialogRef.afterClosed().subscribe(result => {
             dialogRef = null;
             if(result){
-                this.handleData(result);
+                this.createDataset(result.name, (id)=>{
+                    this.uploadData(id, result.data);
+                })
             }
         });
     }
 
-    private handleData(result: any){
-        this._data.create(result.name).subscribe(( res: any ) => {
+    private createDataset(name, callback?){
+        this._data.create(name).subscribe(( res: any ) => {
             let response = res.json();
-            let datasetId = response['data']['id'];
-            this._state.notifyDataChanged("data.refresh", true);
-
-            if ( result.data && result.data.length > 0){
-                this.uploading = true;
-                this.totalFile = result.data.length;
-                this.uploadedFile = 0;
-
-                _.each(result.data, (v : any)=>{
-                    let form = new FormData();
-                    form.append('path', v.path)
-                    form.append("file", v.file);
-                    this._data.upload(datasetId, form).subscribe(()=>{
-                        this.uploadedFile++;
-                        this.upload_progress = (this.uploadedFile / this.totalFile ) * 100;
-                        if (this.uploadedFile == this.totalFile){
-                            this.uploading = false;
-                        }
-                    });
-                });
+            let datasetId = response.data.id;
+            this.datas.push({ "name": name, "id": datasetId});
+            if(callback){
+                callback.call(null, datasetId);
             }
-        })
+        });
     }
 
-    uploadData(datasetId: any, result: any) {
-        if ( result.data && result.data.length > 0){
+    uploadData(datasetId: any, data: any) {
+        if ( data && data.length > 0){
             this.uploading = true;
-            this.totalFile = result.data.length;
+            this.totalFile = data.length;
             this.uploadedFile = 0;
 
-            _.each(result.data, (v : any)=>{
+            _.each(data, (v : any)=>{
                 let form = new FormData();
                 form.append('path', v.path)
                 form.append("file", v.file);
@@ -124,7 +110,7 @@ export class DatasetComponent {
 
     delete(id: string){
         this._data.delete(id).subscribe((v: any)=>{
-            this._state.notifyDataChanged("data.refresh", true);
+            this._state.notifyDataChanged("dataset.refresh", true);
         });
     }
 
