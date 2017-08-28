@@ -13,7 +13,8 @@ export class ProjectDialog {
     datas: Array<any> = [];
     labels: Array<any> = [
         {name: "Classification", id: 'class'},
-        {name: "Bounding Box", id: 'bbox'}
+        {name: "Bounding Box", id: 'bbox'},
+        {name: "Locating", id: 'locate'},
     ]
 
     lbl: string;

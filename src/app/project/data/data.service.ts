@@ -14,7 +14,7 @@ export class DataBus {
     data$ = this.data.asObservable();
 
     updateLabelConfig(data: any, config: any){
-        data.label.config = config;
+        _.set(data, 'label.config', config);
     }
 
     findLabel(id: Set<number>, callback: Function){

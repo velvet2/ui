@@ -2,13 +2,28 @@
     <data-image [data]="data?.data"></data-image>
 
     <div [ngSwitch]="type">
-        <!-- <div    *ngSwitchCase="'bbox'"
+        <div    *ngSwitchCase="'locate'"
+                label-locate
+                [source]="data"
+                [path]="data?.data"
+                [data]="data?.inference"
+                style="position:absolute;top:0;width:100%;height:100%"
+                type="inference"></div>
+
+        <div    *ngSwitchCase="'locate'"
+                label-locate
+                [source]="data"
+                [path]="data?.data"
+                [data]="data?.label"
+                style="position:absolute;top:0;width:100%;height:100%"></div>
+
+        <div    *ngSwitchCase="'bbox'"
                 label-bound
                 [source]="data"
                 [path]="data?.data"
                 [data]="data?.inference"
                 style="position:absolute;top:0;width:100%;height:100%"
-                type="inference"></div> -->
+                type="inference"></div>
 
         <div    *ngSwitchCase="'bbox'"
                 label-bound

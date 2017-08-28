@@ -45,6 +45,7 @@
             <md-card style="height:100%" div [ngSwitch]="project?.label">
               <label-bound-setting *ngSwitchCase="'bbox'" [config]="project?.config" [project]="project?.id" (update)="updateConfig($event)"></label-bound-setting>
               <label-class-setting *ngSwitchCase="'class'" [config]="project?.config" [project]="project?.id" (update)="updateConfig($event)"></label-class-setting>
+              <label-locate-setting *ngSwitchCase="'locate'" [config]="project?.config" [project]="project?.id" (update)="updateConfig($event)"></label-locate-setting>
             </md-card>
           </div>
         </div>
