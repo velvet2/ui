@@ -136,20 +136,25 @@ export class LocateComponent implements OnInit {
         }
 
         let obj = this.stage.getObjects().map((o: any)=>{
-            return {class: o.class, x: o.left, y: o.top, theta: o.angle || 0};
+            return {
+                class: o.class,
+                x: o.left + this._locate.width / 2,
+                y: o.top + this._locate.height / 2,
+                theta: o.angle || 0
+            };
         });
 
         if (obj.length == 0){
-          obj = undefined
+            obj = undefined
         }
 
         this.skipEvent = true;
         this._project.labels(this._locate.projectID, [this.source.data.id], {loc: obj})
-          .subscribe(()=>{
+            .subscribe(()=>{
                 this._data.findLabel(this._data.selected, (v)=>{
                     this._data.updateLabelConfig(v, {loc: obj });
                 });
-          });
+            });
     }
 
     setSize(height: number, width: number){
@@ -160,43 +165,40 @@ export class LocateComponent implements OnInit {
     }
 
     addNewRect(x: number, y: number){
-      let width, height;
-      width = +this._locate.width;
-      height = +this._locate.height;
+        let width, height;
+        width = +this._locate.width;
+        height = +this._locate.height;
 
-      if(this._locate.getClass() == undefined){
-        this._dialog.open(NoClassDialogComponent);
-        return;
-      }
+        if(this._locate.getClass() == undefined){
+            this._dialog.open(NoClassDialogComponent);
+            return;
+        }
 
-
-      x = max([0, x - width / 2])
-      y = max([0, y - height / 2])
-      this.addRect(x, y, width, height)
+        this.addRect(x, y, width, height)
     }
 
     addRect(x: number, y: number, width = -1, height = -1, theta = 0, cls: string = undefined){
-      if (width <= 0 || height <= 0) {
-        width = this.dataWidth *  ( this._locate.width / 100 );
-        height = this.dataHeight *  ( this._locate.height / 100 )
-      }
+        if (width <= 0 || height <= 0) {
+            width = this._locate.width;
+            height = this._locate.height;
+        }
 
-     this.stage.add(new fabric.Rect({
-        left: x,
-        top: y,
-        width: width,
-        height: height,
-        stroke: this._locate.getClass(cls).color,
-        class: this._locate.getClass(cls).class,
-        strokeWidth: max([1, 2 / this.scale]),
-        angle: theta,
-        fill: 'rgba(0,0,0,0)',
-        cornerColor: this._locate.getClass(cls).color,
-        cornerSize: 18 / this.scale,
-        rotatingPointOffset: 40 / this.scale,
-        transparentCorners: false
-    }))
-
+        console.log(x, width, x - width / 2)
+        this.stage.add(new fabric.Rect({
+            left: x - width / 2,
+            top: y - height / 2,
+            width: width,
+            height: height,
+            stroke: this._locate.getClass(cls).color,
+            class: this._locate.getClass(cls).class,
+            strokeWidth: max([1, 2 / this.scale]),
+            angle: theta,
+            fill: 'rgba(0,0,0,0)',
+            cornerColor: this._locate.getClass(cls).color,
+            cornerSize: 18 / this.scale,
+            rotatingPointOffset: 40 / this.scale,
+            transparentCorners: false
+        }));
     }
 
     selectedObject(): Array<any>{
