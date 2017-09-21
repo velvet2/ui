@@ -1,10 +1,13 @@
 <div style="max-height:100%;min-height:100%"
     fxLayout="column">
     <md-toolbar color="lightgray" fxLayout="row">
+        <button md-icon-button>
+            <md-icon>search</md-icon>
+        </button>
         <md-input-container>
             <input mdInput placeholder="Search" [ngModel]="search" (ngModelChange)="search$.next($event)">
         </md-input-container>
-        <span>{{ datas?.length }}</span>
+        <span>{{ labels?.length }}</span>
         <span fxFlex></span>
         <button md-icon-button
                 *ngIf="list"

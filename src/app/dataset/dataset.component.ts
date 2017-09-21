@@ -108,6 +108,10 @@ export class DatasetComponent {
     // }
     //
 
+    export(id: string){
+        window.open(`api/datasets/exports/${id}`);
+    }
+
     delete(id: string){
         this._data.delete(id).subscribe((v: any)=>{
             this._state.notifyDataChanged("dataset.refresh", true);

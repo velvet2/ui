@@ -57,35 +57,28 @@ export class DataComponent {
             this._project.get(this.id).subscribe((v: any)=>{
                 this.project = v;
             });
-
-            this._project.filter(this.id).subscribe((v: any)=>{
-                this.labels = v;
-                this._datab.setData(this.labels);
-            });
         });
 
         this.sub = this._state.subscribe('project.render', ()=>{
-          this.vs.refresh();
+            this.vs.refresh();
         })
 
         this.sub2 = this.search$.debounceTime(500).subscribe((v: any)=>{
-          try{
-            jsep(v)
-          } catch (e) {
-            console.log("error")
-          } finally {
-            this.doSearch(v)
-          }
+            try{
+                jsep(v)
+            } catch (e) {
+                console.error("error:", e)
+            } finally {
+                this.doSearch(v)
+            }
         });
     }
 
     doSearch(query: any){
-        console.warn('search disabled');
-    //   this._project.getOneProject(this.id, query).subscribe((v: any)=>{
-    //       this.project = v;
-    //       this.datas =  this.project.datas
-    //       this._datab.datas = this.datas;
-    //   });
+        this._project.filter(this.id, query).subscribe((v: any)=>{
+            this.labels = v;
+            this._datab.setData(this.labels);
+        });
     }
 
     ngAfterViewInit(){

@@ -10,6 +10,10 @@
             <button md-button
                     color="primary" >Edit</button>
             <button md-button
+                    (click)="export(data.id)"
+                    color="primary" >Export</button>
+
+            <button md-button
                     color="warn"
                     (click)="delete(data.id)">Delete</button>
        </md-card-actions>

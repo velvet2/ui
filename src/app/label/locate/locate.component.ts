@@ -183,7 +183,6 @@ export class LocateComponent implements OnInit {
             height = this._locate.height;
         }
 
-        console.log(x, width, x - width / 2)
         this.stage.add(new fabric.Rect({
             left: x - width / 2,
             top: y - height / 2,

@@ -54,21 +54,21 @@ export class ProjectService {
             });
     }
 
-    filter(id: string, filter: string = ''): Observable<any> {
-        let params
-        if(filter.length > 0){
-          params = { "search" : btoa(filter), "encode": 1}
-        }
+    filter(id: string, filter?: string): Observable<any> {
+        let params: any = {}
+        params.project = id;
+        if( filter ){
+            params.search = btoa(filter);
+            params.encode = 1;
+         }
 
         return this._http.get('api/datas/labels/', {
-          params: { project: id}
-        })
-            .map((data: Response) => {
-                return data.json();
-            })
-            .catch((data: Response) => {
-                return data.json()
-            });
+            params: params
+        }).map((data: Response) => {
+            return data.json();
+        }).catch((data: Response) => {
+            return data.json()
+        });
     }
 
     labels(project_id: any, data_id: Array<any>, label: any){
