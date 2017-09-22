@@ -1,6 +1,5 @@
 <div style="width:100%;height:100%;position:relative">
     <data-image [data]="data?.data || data"></data-image>
-
     <div [ngSwitch]="type">
         <div    *ngSwitchCase="'locate'"
                 label-locate
@@ -44,8 +43,7 @@
                 style="position:absolute;top:0;width:100%;height:100%"
                 type="inference"></div>
     </div>
-
-    <div class="highlight-box" *ngIf="selected">
-    </div>
-
+    <div class="highlight-box"
+        [style.height.px]="height"
+        [style.width.px]="width" *ngIf="selected"></div>
 </div>

@@ -1,16 +1,10 @@
-.highlight {
-    border: 4px solid #0d78fc;
-    box-sizing: border-box;
-}
-
 .data {
     float:left;
 }
 
 .highlight-box {
-    position:relative;
+    position:absolute;
     pointer-events: none;
-    height: 100%;
-    margin-top: -100%;
     border: blue solid 2px;
+    top: 0px;
 }

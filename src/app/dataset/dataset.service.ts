@@ -17,7 +17,7 @@ export class DatasetService {
     }
 
     listDataset(): Observable<any> {
-        return this._http.get('api/datasets/')
+        return this._http.get('api/datasets')
             .map((data: Response) => {
                 return data.json()
             })
@@ -27,7 +27,7 @@ export class DatasetService {
     }
 
     create(name: string): Observable<any> {
-        return this._http.post("api/datasets/", { "name": name })
+        return this._http.post('api/datasets', { 'name': name })
            .map((v: any)=>{ return v })
            .catch((v: any)=>{ return v });
     }

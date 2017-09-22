@@ -87,8 +87,8 @@ export class LocateComponent implements OnInit {
         let scaleH = dimension.width / this.dataWidth;
         this.scale = min([scaleW, scaleH]);
 
-        this.paddingTop = ( dimension.height - this.dataHeight * this.scale ) / 2 ;
-        this.paddingLeft = ( dimension.width - this.dataWidth * this.scale ) / 2 ;
+        this.paddingTop = Math.max(dimension.height - this.dataHeight * this.scale, 0) / 2;
+        this.paddingLeft = Math.max(dimension.width - this.dataWidth * this.scale, 0) / 2;
 
         if ( this.ready ) {
             this.stage.setDimensions({ width: this.dataWidth, height: this.dataHeight});

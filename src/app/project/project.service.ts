@@ -7,7 +7,7 @@ export class ProjectService {
     constructor(private _http: Http) { }
 
     list(): Observable<any> {
-        return this._http.get('api/projects/')
+        return this._http.get('api/projects')
             .map((data: Response) => {
                 return data.json().data;
             })
@@ -17,7 +17,7 @@ export class ProjectService {
     }
 
     get(id: string, filter?: string): Observable<any> {
-        return this._http.get(`api/projects/${id}/`)
+        return this._http.get(`api/projects/${id}`)
             .map((data: Response) => {
                 return data.json().data;
             })
@@ -28,7 +28,7 @@ export class ProjectService {
 
 
     create(name: string, label: string, dataset: number): Observable<any> {
-        return this._http.post("api/projects/", { "name": name, "label": label, "dataset": dataset })
+        return this._http.post('api/projects', { 'name': name, "label": label, "dataset": dataset })
            .map((v: any)=>{ return v })
            .catch((v: any)=>{ return v });
     }
@@ -44,7 +44,7 @@ export class ProjectService {
     }
 
     edit(id: number, name: string, config: any): Observable<any> {
-        return this._http.put(`api/projects/${id}/`,
+        return this._http.put(`api/projects/${id}`,
                 {name: name, config: config})
             .map((data: Response) => {
                 return data;

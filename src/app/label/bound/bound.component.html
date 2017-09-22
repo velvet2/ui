@@ -1,20 +1,19 @@
-<div style="position:absolute;width:100%;height:1px;"
-      [style.padding-top.px]="paddingTop"
-      [style.padding-left.px]="paddingLeft">
-      <md-chip-list style="margin:5px;position:absolute" *ngIf="!type && userInput">
-          <md-chip>
-              <span>{{ userInput }}</span>
-              <!-- <md-icon style="font-size:1rem;text-align:center" (click)="userInput=''">close</md-icon> -->
-          </md-chip>
-      </md-chip-list>
-    <div    class="ori-scale noselect"
-            tabindex=1
-            (dblclick)="addNewRect($event.offsetX, $event.offsetY)"
-            (keydown.delete)="delete()"
-            (keydown.backspace)="delete()"
-            (keydown)="assignLabel($event)"
-            [style.transform]="'scale('+ scale + ',' + scale + ')'">
-      <canvas #canvas></canvas>
+<div style="position:absolute;width:100%;height:1px"
+    [style.padding-top.px]="paddingTop"
+    [style.padding-left.px]="paddingLeft">
+    <md-chip-list style="margin:5px;position:absolute" *ngIf="!type && userInput">
+        <md-chip>
+            <span>{{ userInput }}</span>
+            <!-- <md-icon style="font-size:1rem;text-align:center" (click)="userInput=''">close</md-icon> -->
+        </md-chip>
+    </md-chip-list>
+    <div class="ori-scale noselect"
+        tabindex=1
+        (dblclick)="addNewRect($event.offsetX, $event.offsetY)"
+        (keydown.delete)="delete()"
+        (keydown.backspace)="delete()"
+        (keydown)="assignLabel($event)"
+        [style.transform]="'scale('+ scale + ',' + scale + ')'">
+        <canvas #canvas></canvas>
     </div>
-
 </div>
